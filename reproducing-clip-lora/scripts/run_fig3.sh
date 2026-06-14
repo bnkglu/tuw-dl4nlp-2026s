@@ -10,8 +10,9 @@
 #   bash run_fig3.sh eurosat  ./datasets
 #   bash run_fig3.sh stanford_cars ./datasets
 #
-# With nohup:
-#   nohup bash run_fig3.sh eurosat ./datasets > fig3_eurosat.log 2>&1 &
+# With nohup (master log under logs/, which is git-ignored):
+#   mkdir -p logs
+#   nohup bash run_fig3.sh eurosat ./datasets > logs/fig3_eurosat.log 2>&1 &
 # =============================================================================
 
 set -u

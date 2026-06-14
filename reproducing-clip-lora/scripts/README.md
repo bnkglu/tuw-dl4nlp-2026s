@@ -31,14 +31,17 @@ bash scripts/download_datasets.sh
 bash scripts/run_sanity_check.sh ViT-B/16 datasets   # teammate 1
 bash scripts/run_sanity_check.sh ViT-B/32 datasets   # teammate 2
 
+# (nohup master logs go in logs/, which is git-ignored)
+mkdir -p logs
+
 # 2. main grids (background, resume-safe)
-nohup bash scripts/run_table_3.sh datasets > table3_run.log 2>&1 &   # teammate 1
-nohup bash scripts/run_table_4.sh datasets > table4_run.log 2>&1 &   # teammate 2
+nohup bash scripts/run_table_3.sh datasets > logs/table3_run.log 2>&1 &   # teammate 1
+nohup bash scripts/run_table_4.sh datasets > logs/table4_run.log 2>&1 &   # teammate 2
 
 # 3. Figure 3 ablations (per dataset)
-nohup bash scripts/run_fig3.sh eurosat       datasets > fig3_eurosat.log 2>&1 &
-nohup bash scripts/run_fig3.sh imagenet      datasets > fig3_imagenet.log 2>&1 &
-nohup bash scripts/run_fig3.sh stanford_cars datasets > fig3_cars.log 2>&1 &
+nohup bash scripts/run_fig3.sh eurosat       datasets > logs/fig3_eurosat.log 2>&1 &
+nohup bash scripts/run_fig3.sh imagenet      datasets > logs/fig3_imagenet.log 2>&1 &
+nohup bash scripts/run_fig3.sh stanford_cars datasets > logs/fig3_cars.log 2>&1 &
 
 # 4. summarize for the report
 python scripts/aggregate_results.py
