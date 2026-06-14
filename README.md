@@ -24,6 +24,7 @@ The goal of this project is to reproduce key experiments from the selected resea
 ### 1. Reproduction
 
 - **Objective:** Present the reproduction of the paper’s key experiments.
+- **[How to Reproduce (step-by-step guide)](REPRODUCING.md):** Hands-on runbook — environment setup, downloading every dataset (including the manual ones: ImageNet and StanfordCars), running the experiments, and collecting results.
 - **[Reproduction Plan & Details](docs/reproduction_details.md):** A concise breakdown of our step-by-step reproduction plan, including the specific tables, figures, datasets we intend to target, and experiment details in the paper.
 - **[Reproduction Notes & Fixes](docs/reproduction_notes.md):** Tracks environment bugs encountered during implementation (e.g., NumPy and PyTorch/CUDA versioning) and how we fixed them to ensure the original codebase runs successfully today.
 
