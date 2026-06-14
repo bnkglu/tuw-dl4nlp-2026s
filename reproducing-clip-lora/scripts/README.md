@@ -114,9 +114,9 @@ results/
 │                              #   params,encoder,position,dropout,accuracy,status,
 │                              #   start_time,seconds)  <- seconds = per-run wall-clock
 ├── clip_lora_summary.csv      # seed-averaged (written by aggregate_results.py)
-├── table3/   *.log            # per-run logs (ViT-B/16)
-├── table4/   *.log            # per-run logs (ViT-B/32)
-└── fig3/     *.log            # per-run logs (ablations)
+├── table3/<dataset>/*.log     # per-run logs (ViT-B/16), grouped by dataset
+├── table4/<dataset>/*.log     # per-run logs (ViT-B/32), grouped by dataset
+└── fig3/<dataset>/*.log       # per-run logs (ablations), grouped by dataset
 ```
 The per-run log directories are git-ignored; `clip_lora_results.csv` / `clip_lora_summary.csv`
 can be committed for the report.

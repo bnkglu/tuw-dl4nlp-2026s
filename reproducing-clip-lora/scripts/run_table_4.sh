@@ -53,7 +53,9 @@ for dataset in "${DATASETS[@]}"; do
         for seed in "${SEEDS[@]}"; do
             COUNT=$((COUNT + 1))
             RUN_NAME="${dataset}_s${shots}_seed${seed}"
-            LOG_FILE="$LOG_DIR/${RUN_NAME}.log"
+            RUN_LOG_DIR="$LOG_DIR/${dataset}"
+            mkdir -p "$RUN_LOG_DIR"
+            LOG_FILE="$RUN_LOG_DIR/s${shots}_seed${seed}.log"
 
             # Skip if already completed successfully
             if [ -f "$LOG_FILE" ] && grep -q "Final test accuracy" "$LOG_FILE" 2>/dev/null; then
