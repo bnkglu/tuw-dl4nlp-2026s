@@ -1,1 +1,66 @@
+# ============================================================
+# Python
+# ============================================================
+__pycache__/
+*.py[cod]
+*$py.class
+*.egg-info/
+.eggs/
+build/
+dist/
+.ipynb_checkpoints/
+
+# ============================================================
+# Virtual environments
+# ============================================================
 .venv/
+venv/
+env/
+ENV/
+
+# ============================================================
+# OS / editor cruft
+# ============================================================
+.DS_Store
+Thumbs.db
+*.swp
+.idea/
+.vscode/
+
+# ============================================================
+# Experiment outputs
+# KEEP everything under results/ (CSVs AND per-run logs) as reproduction
+# evidence. Ignore only stray top-level logs and bulky model weights.
+# ============================================================
+*.log
+# but DO keep the per-run logs under results/ (no inline comment on the line below!)
+!**/results/**/*.log
+nohup.out
+logs/
+master_reproduction_log.txt
+
+# Saved LoRA / model weights (large, and reproducible from seed + code).
+# Remove these two lines if you want to commit the trained adapters too.
+*.pt
+*.pth
+
+# ============================================================
+# Dataset DATA (but keep the loader code + DATASETS.md, etc.)
+# The data folders live inside reproducing-clip-lora/datasets/ alongside
+# the .py loaders. Ignore every data subdirectory there, but the loader
+# .py files (which are files, not directories) stay tracked.
+# ============================================================
+reproducing-clip-lora/datasets/*/
+
+# Dataset archives that get dropped directly into datasets/
+reproducing-clip-lora/datasets/*.zip
+reproducing-clip-lora/datasets/*.tar
+reproducing-clip-lora/datasets/*.tar.gz
+reproducing-clip-lora/datasets/*.tgz
+reproducing-clip-lora/datasets/*.gz
+
+# Generic large archives anywhere
+*.zip
+*.tar
+*.tar.gz
+*.tgz

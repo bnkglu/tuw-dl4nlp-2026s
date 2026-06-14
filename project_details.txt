@@ -1,0 +1,91 @@
+Course: 192.039 - 2026S - Deep Learning for Natural Language Processing 
+
+Group members: Hasan Berke Bankoglu, Zarek Asif
+Student numbers: 12432802, <student_number>
+
+Paper: Low-Rank Few-Shot Adaptation of Vision-Language Models
+Link: https://arxiv.org/pdf/2405.18541
+
+# TUWEL PAGE DETAILS
+
+Assignment: Reproducibility and Extension Challenge
+Objective
+Reproduce key experiments from one machine learning research paper from the list below and/or extend the results in a novel way. Present your findings in a PowerPoint presentation.
+
+Deliverables
+
+A PowerPoint presentation demonstrating your understanding, reproduction, and extension of the chosen paper
+
+
+
+A GitHub repository containing the implementation of the paper and any extensions
+
+
+
+Attendance at an individual group session after the group presentation to discuss your personal contributions and answer questions from the course instructor
+
+
+Group Work
+Students will form groups of three to four members. Each group will select one paper from the provided list. In general, each group should choose a single paper, although exceptions may be made. Students may also propose a paper, subject to instructor approval.
+
+Presentation Guidelines
+Duration: 20 minutes
+
+Structure
+Introduction
+Briefly introduce the paper and its key contributions.
+
+Understanding
+Demonstrate a clear understanding of the paper. Explain the main concepts, methods, and results.
+
+Reproduction
+Present the reproduction of the paper’s key experiments. Include the code used, datasets, and any challenges encountered.
+
+Extension
+Present any novel extensions or additional experiments you conducted. Explain the motivation for these extensions and discuss the outcomes.
+
+Conclusion
+Summarize your findings and comment on the reproducibility of the original results. Reflect on the value of your extensions and suggest possible future work.
+
+Individual Group Sessions
+Duration: 15 minutes per group
+
+Purpose
+During the individual session, each student should be able to:
+
+
+explain their personal contribution to the project,
+
+
+
+demonstrate understanding of the overall group work,
+
+
+
+answer questions related to the reproduction and extension tasks.
+
+
+Advice on Experiment Reproduction
+If reproducing the full experiments takes too long, you may use a representative subset of the original dataset to demonstrate the main principles of the paper. This can save time while still illustrating the key concepts and methods effectively. Make sure the chosen subset is representative enough to provide meaningful insights that are reasonably comparable to results on the full dataset.
+
+Important Notes
+Code Submission
+All code must be made available in a public GitHub repository. Include a link to the repository in the presentation.
+
+Use of External Code
+If you use publicly available code, clearly acknowledge it and document any modifications you make. More substantial extensions are expected if significant portions of the implementation are reused.
+
+Timeline
+Presentations will take place on 29 and 30 June.
+The written exam will take place on 25th of June
+
+
+All the information on the exame can be found in the following two files:
+
+Exam info:
+
+https://docs.google.com/document/d/13oy_fmYHzkChSlKpcxOodOiDFD7Ug-Kw-N_0a0ZEMnk/edit?usp=sharing
+
+Excel spreadhseet for groups:
+
+https://docs.google.com/spreadsheets/d/1sQ1io6c8Mz2eyWje5XGysuYbgtWYiwcz/edit?gid=1435807218#gid=1435807218
