@@ -297,7 +297,9 @@ else
     echo -e "  ${RED}✗ Split JSON failed${NC}"
     FAIL+=("SUN397 - split JSON")
 fi
-FAIL+=("SUN397 - images (manual HuggingFace download required)")
+if [ ! -d "$SUN_DIR/SUN397" ]; then
+    FAIL+=("SUN397 - images (manual HuggingFace download required)")
+fi
 echo ""
 
 # ==============================
@@ -462,16 +464,38 @@ if [ ${#FAIL[@]} -gt 0 ]; then
     echo -e "${BLUE}See docs/reproduction_notes.md for alternative download links.${NC}"
 fi
 
+# Flag ONLY the datasets whose images are genuinely still missing on disk, so a
+# fully successful run prints no false "manual action" warnings.
+MANUAL=()
+if [ ! -d "$DATA_DIR/imagenet/train/n01440764" ]; then
+    MANUAL+=("ImageNet: place the ILSVRC2012 tars (~144GB) from image-net.org in $DATA_DIR and re-run (or extract manually).")
+fi
+if [ ! -d "$DATA_DIR/StanfordCars/cars_train" ]; then
+    MANUAL+=("StanfordCars: place stanford_cars.zip in $DATA_DIR (Kaggle: rickyyyyyyy/torchvision-stanford-cars) and re-run.")
+fi
+if [ ! -d "$DATA_DIR/SUN397/SUN397" ]; then
+    MANUAL+=("SUN397: download images from HuggingFace (1aurent/SUN397, ~39.5GB) into $DATA_DIR/SUN397.")
+fi
+if [ ! -d "$DATA_DIR/UCF101/UCF-101-midframes" ]; then
+    MANUAL+=("UCF101: midframes (Google Drive) missing - re-run or download manually.")
+fi
+if [ ! -d "$DATA_DIR/Food101/images" ]; then
+    MANUAL+=("Food101: images (ETH server) missing - re-run or download manually.")
+fi
+
 echo ""
-echo -e "${RED}==============================================${NC}"
-echo -e "${RED} MANUAL ACTIONS REQUIRED${NC}"
-echo -e "${RED}==============================================${NC}"
-echo -e "${RED}ImageNet${NC}: Requires manual download of 144GB from image-net.org"
-echo -e "${RED}StanfordCars${NC}: Requires manual Kaggle download (URLs are dead)"
-echo -e "${RED}SUN397${NC}: Requires manual HuggingFace/Kaggle download (URLs are dead)"
-echo -e "${RED}UCF101 / Food101${NC}: May require manual download if Google Drive/ETH servers time out."
-echo ""
-echo -e "See ${BLUE}docs/reproduction_notes.md${NC} for full manual instructions."
+if [ ${#MANUAL[@]} -gt 0 ]; then
+    echo -e "${RED}==============================================${NC}"
+    echo -e "${RED} MANUAL ACTIONS REQUIRED${NC}"
+    echo -e "${RED}==============================================${NC}"
+    for item in "${MANUAL[@]}"; do
+        echo -e "${RED}- ${item}${NC}"
+    done
+    echo ""
+    echo -e "See ${BLUE}docs/reproduction_notes.md${NC} for full manual instructions."
+else
+    echo -e "${GREEN}All required datasets are present - no manual actions needed.${NC}"
+fi
 
 echo ""
 echo "Done."
