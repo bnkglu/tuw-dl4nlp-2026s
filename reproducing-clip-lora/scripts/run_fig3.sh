@@ -92,7 +92,9 @@ run_one() {
 
     COUNT=$((COUNT + 1))
     local RUN_NAME="${DATASET}_r${rank}_${params_label}_${encoder}_${position}_seed${seed}"
-    local LOG_FILE="$LOG_DIR/${RUN_NAME}.log"
+    local RUN_LOG_DIR="$LOG_DIR/${DATASET}"
+    mkdir -p "$RUN_LOG_DIR"
+    local LOG_FILE="$RUN_LOG_DIR/r${rank}_${params_label}_${encoder}_${position}_seed${seed}.log"
 
     if [ -f "$LOG_FILE" ] && grep -q "Final test accuracy" "$LOG_FILE" 2>/dev/null; then
         echo "[$COUNT/$TOTAL] SKIP $RUN_NAME (already done)"
