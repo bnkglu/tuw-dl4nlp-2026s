@@ -149,11 +149,15 @@ The runs are **resume-safe** — re-running skips any run whose log already cont
 ## 5. Collect results
 
 ```bash
+# Tables (Table 3 / Table 4)
 python scripts/aggregate_results.py
+
+# Figure 3 uses its own CSV (so it can run on a second server without clashing):
+python scripts/aggregate_results.py --csv results/clip_lora_fig3.csv --out results/clip_lora_fig3_summary.csv
 ```
-Reads `results/clip_lora_results.csv`, groups runs by config (ignoring seed), and reports
-**mean ± std accuracy over seeds** plus **mean / total wall-clock time** per config. Writes
-`results/clip_lora_summary.csv` — that's the table to compare against the paper.
+Groups runs by config (ignoring seed) and reports **mean ± std accuracy over seeds** plus
+**mean / total wall-clock time** per config. Writes the seed-averaged summary CSV — that's the
+table to compare against the paper.
 
 ---
 
@@ -163,8 +167,10 @@ Reads `results/clip_lora_results.csv`, groups runs by config (ignoring seed), an
 reproducing-clip-lora/
 ├── logs/                              # nohup master logs (git-ignored)
 └── results/
-    ├── clip_lora_results.csv          # one row per run (committed)
-    ├── clip_lora_summary.csv          # seed-averaged summary (committed)
+    ├── clip_lora_results.csv          # table3/table4 per-run rows (committed)
+    ├── clip_lora_summary.csv          # seed-averaged tables (committed)
+    ├── clip_lora_fig3.csv             # figure-3 per-run rows (committed)
+    ├── clip_lora_fig3_summary.csv     # seed-averaged figure-3 (committed)
     ├── table3/<dataset>/*.log         # per-run logs, ViT-B/16
     ├── table4/<dataset>/*.log         # per-run logs, ViT-B/32
     └── fig3/<dataset>/*.log           # per-run logs, ablations

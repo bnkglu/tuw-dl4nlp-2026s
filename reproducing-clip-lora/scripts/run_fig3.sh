@@ -23,7 +23,9 @@ cd "$(dirname "$0")/.." || exit 1
 DATASET="${1:?Usage: bash run_fig3.sh <dataset> [DATA_DIR]}"
 DATA_DIR="${2:-./datasets}"
 LOG_DIR="./results/fig3"
-CSV_FILE="./results/clip_lora_results.csv"
+# Figure 3 writes to its OWN CSV (separate from table3/table4) so the two phases can run
+# concurrently on different servers/GPUs without clashing on one shared file.
+CSV_FILE="./results/clip_lora_fig3.csv"
 BACKBONE="ViT-B/16"
 SHOTS=4
 SEEDS=(1)  # Start with seed 1; add 2 and 3 if time permits

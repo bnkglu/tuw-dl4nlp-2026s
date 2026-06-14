@@ -92,7 +92,9 @@ bash scripts/run_fig3.sh <dataset> [DATA_DIR]
 - ViT-B/16, 4-shot. Main grid = rank {1,2,4,8,16,32} × matrix set {k, q, v, o, q v, q v k, q v k o}
   × encoder {vision, text, both}, plus a placement set {bottom, up, all} at rank 2 / `q k v` / both.
 - Defaults to seed 1; edit `SEEDS=(1 2 3)` in the script for error bars.
-- Same resume-safe + CSV-append behavior as the table scripts.
+- Same resume-safe behavior as the table scripts, but appends to its **own** CSV
+  `results/clip_lora_fig3.csv` (kept separate from the table runs so Figure 3 can run
+  concurrently on a second server without clashing on one shared file).
 
 ### `aggregate_results.py`
 ```bash
@@ -105,15 +107,22 @@ python scripts/aggregate_results.py [--csv PATH] [--out PATH] [--no-save]
   rows from retries don't inflate the average).
 - Prints compact tables for `table3`/`table4` and the full config for `fig3`; writes
   `results/clip_lora_summary.csv` unless `--no-save`. Pure standard library (no pandas).
+- **Tables vs Figure 3 use separate CSVs.** Default reads the table CSV. For Figure 3, point
+  it at the fig3 CSV and a distinct output (otherwise the summary name collides):
+  ```bash
+  python scripts/aggregate_results.py --csv results/clip_lora_fig3.csv --out results/clip_lora_fig3_summary.csv
+  ```
 
 ## Output layout
 
 ```
 results/
-├── clip_lora_results.csv      # per-run rows (table,dataset,backbone,shots,seed,rank,
-│                              #   params,encoder,position,dropout,accuracy,status,
+├── clip_lora_results.csv      # table3/table4 per-run rows (table,dataset,backbone,shots,
+│                              #   seed,rank,params,encoder,position,dropout,accuracy,status,
 │                              #   start_time,seconds)  <- seconds = per-run wall-clock
-├── clip_lora_summary.csv      # seed-averaged (written by aggregate_results.py)
+├── clip_lora_summary.csv      # seed-averaged tables (written by aggregate_results.py)
+├── clip_lora_fig3.csv         # figure-3 per-run rows (same columns)
+├── clip_lora_fig3_summary.csv # seed-averaged figure-3 (aggregate with --csv/--out)
 ├── table3/<dataset>/*.log     # per-run logs (ViT-B/16), grouped by dataset
 ├── table4/<dataset>/*.log     # per-run logs (ViT-B/32), grouped by dataset
 └── fig3/<dataset>/*.log       # per-run logs (ablations), grouped by dataset
