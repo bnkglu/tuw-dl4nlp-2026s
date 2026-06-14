@@ -27,9 +27,7 @@ pip install torch torchvision
 #     otherwise you get "no kernel image is available" (see reproduction_notes.md §2):
 # pip install torch torchvision --index-url https://download.pytorch.org/whl/cu121
 
-# OpenAI CLIP + the rest of the deps
-pip install ftfy regex tqdm
-pip install git+https://github.com/openai/CLIP.git
+# Install dependencies
 pip install -r requirements.txt
 ```
 
