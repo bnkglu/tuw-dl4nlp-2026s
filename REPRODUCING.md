@@ -144,7 +144,7 @@ good.
 > - ✅ **Table 3 (ViT-B/16)** — complete (150/150 runs, 0 failed)
 > - ✅ **Figure 3 — EuroSAT** — complete (129/129 runs, 0 failed)
 > - ⏳ **Figure 3 — ImageNet** — in progress
-> - ⬜ **Table 4 (ViT-B/32)** and **Figure 3 — StanfordCars** — not started yet
+> - ⬜ **Table 4 (ViT-B/32)**, **Table 5 (ViT-L/14)**, and **Figure 3 — StanfordCars** — not started yet
 
 Run from the repo root (`reproducing-clip-lora/`) so `logs/` lands here. Master logs go to
 `logs/` (git-ignored); per-run logs and result CSVs go under `results/` (committed).
@@ -152,9 +152,10 @@ Run from the repo root (`reproducing-clip-lora/`) so `logs/` lands here. Master 
 ```bash
 mkdir -p logs
 
-# Phase 1 — Table 3 (ViT-B/16) and Table 4 (ViT-B/32): 10 datasets × {1,2,4,8,16} shots × seeds {1,2,3}
-nohup bash scripts/run_table_3.sh datasets > logs/table3_run.log 2>&1 &   # teammate 1 (ViT-B/16)
-nohup bash scripts/run_table_4.sh datasets > logs/table4_run.log 2>&1 &   # teammate 2 (ViT-B/32)
+# Phase 1 — Tables 3/4/5 (ViT-B/16, ViT-B/32, ViT-L/14): 10 datasets × {1,2,4,8,16} shots × seeds {1,2,3}
+nohup bash scripts/run_table_3.sh datasets > logs/table3_run.log 2>&1 &   # ViT-B/16
+nohup bash scripts/run_table_4.sh datasets > logs/table4_run.log 2>&1 &   # ViT-B/32
+nohup bash scripts/run_table_5.sh datasets > logs/table5_run.log 2>&1 &   # ViT-L/14 (heaviest — most GPU mem + slowest)
 
 # Phase 2 — Figure 3 ablations (ViT-B/16, 4-shot), one dataset at a time
 nohup bash scripts/run_fig3.sh eurosat       datasets > logs/fig3_eurosat.log 2>&1 &
@@ -193,12 +194,13 @@ table to compare against the paper.
 reproducing-clip-lora/
 ├── logs/                              # nohup master logs (git-ignored)
 └── results/
-    ├── clip_lora_results.csv          # table3/table4 per-run rows (committed)
+    ├── clip_lora_results.csv          # table3/table4/table5 per-run rows (committed)
     ├── clip_lora_summary.csv          # seed-averaged tables (committed)
     ├── clip_lora_fig3.csv             # figure-3 per-run rows (committed)
     ├── clip_lora_fig3_summary.csv     # seed-averaged figure-3 (committed)
     ├── table3/<dataset>/*.log         # per-run logs, ViT-B/16
     ├── table4/<dataset>/*.log         # per-run logs, ViT-B/32
+    ├── table5/<dataset>/*.log         # per-run logs, ViT-L/14
     └── fig3/<dataset>/*.log           # per-run logs, ablations
 ```
 

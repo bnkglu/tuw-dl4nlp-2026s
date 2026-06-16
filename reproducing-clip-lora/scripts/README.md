@@ -17,6 +17,7 @@ see [`docs/reproduction_details.md`](../../docs/reproduction_details.md).
 | `run_sanity_check.sh` | One fast run to verify the environment, data paths, and training loop work. |
 | `run_table_3.sh` | Phase 1.A — full few-shot grid on **ViT-B/16** (Table 3). |
 | `run_table_4.sh` | Phase 1.B — full few-shot grid on **ViT-B/32** (Table 4). |
+| `run_table_5.sh` | Phase 1.C — full few-shot grid on **ViT-L/14** (Table 5). |
 | `run_fig3.sh` | Phase 2 — Figure 3 ablations (rank × matrices × encoder + placement) for one dataset. |
 | `aggregate_results.py` | Collapse per-run results into seed-averaged mean ± std for the report. |
 
@@ -35,8 +36,9 @@ bash scripts/run_sanity_check.sh ViT-B/32 datasets   # teammate 2
 mkdir -p logs
 
 # 2. main grids (background, resume-safe)
-nohup bash scripts/run_table_3.sh datasets > logs/table3_run.log 2>&1 &   # teammate 1
-nohup bash scripts/run_table_4.sh datasets > logs/table4_run.log 2>&1 &   # teammate 2
+nohup bash scripts/run_table_3.sh datasets > logs/table3_run.log 2>&1 &   # teammate 1 (ViT-B/16)
+nohup bash scripts/run_table_4.sh datasets > logs/table4_run.log 2>&1 &   # teammate 2 (ViT-B/32)
+nohup bash scripts/run_table_5.sh datasets > logs/table5_run.log 2>&1 &   # ViT-L/14 (heaviest — most GPU mem + slowest)
 
 # 3. Figure 3 ablations (per dataset)
 nohup bash scripts/run_fig3.sh eurosat       datasets > logs/fig3_eurosat.log 2>&1 &
@@ -76,12 +78,16 @@ bash scripts/run_sanity_check.sh [BACKBONE] [DATA_DIR]   # defaults: ViT-B/16  .
 ```
 Runs EuroSAT 4-shot, seed 1 — a quick end-to-end check before launching the full grids.
 
-### `run_table_3.sh` / `run_table_4.sh`
+### `run_table_3.sh` / `run_table_4.sh` / `run_table_5.sh`
 ```bash
 bash scripts/run_table_3.sh [DATA_DIR] [LOG_DIR]   # ViT-B/16, LOG_DIR=results/table3
 bash scripts/run_table_4.sh [DATA_DIR] [LOG_DIR]   # ViT-B/32, LOG_DIR=results/table4
+bash scripts/run_table_5.sh [DATA_DIR] [LOG_DIR]   # ViT-L/14, LOG_DIR=results/table5
 ```
 - Grid: 10 datasets × shots {1,2,4,8,16} × seeds {1,2,3} = **150 runs** each.
+- Identical except for the backbone (and the `table3`/`table4`/`table5` tag written to the CSV).
+  **ViT-L/14 is the heaviest** — bigger model + checkpoint, so expect longer per-run times and
+  more GPU memory.
 - **Resume-safe:** a run whose `.log` already contains `Final test accuracy` is skipped.
 - Appends one row per run to `results/clip_lora_results.csv`.
 
@@ -105,7 +111,7 @@ python scripts/aggregate_results.py [--csv PATH] [--out PATH] [--no-save]
   the view to compare against the paper.
 - Skips `FAILED` rows; if a `(config, seed)` was re-run, keeps the last `OK` row (so duplicate
   rows from retries don't inflate the average).
-- Prints compact tables for `table3`/`table4` and the full config for `fig3`; writes
+- Prints compact tables for `table3`/`table4`/`table5` and the full config for `fig3`; writes
   `results/clip_lora_summary.csv` unless `--no-save`. Pure standard library (no pandas).
 - **Tables vs Figure 3 use separate CSVs.** Default reads the table CSV. For Figure 3, point
   it at the fig3 CSV and a distinct output (otherwise the summary name collides):
@@ -117,7 +123,7 @@ python scripts/aggregate_results.py [--csv PATH] [--out PATH] [--no-save]
 
 ```
 results/
-├── clip_lora_results.csv      # table3/table4 per-run rows (table,dataset,backbone,shots,
+├── clip_lora_results.csv      # table3/table4/table5 per-run rows (table,dataset,backbone,shots,
 │                              #   seed,rank,params,encoder,position,dropout,accuracy,status,
 │                              #   start_time,seconds)  <- seconds = per-run wall-clock
 ├── clip_lora_summary.csv      # seed-averaged tables (written by aggregate_results.py)
@@ -125,6 +131,7 @@ results/
 ├── clip_lora_fig3_summary.csv # seed-averaged figure-3 (aggregate with --csv/--out)
 ├── table3/<dataset>/*.log     # per-run logs (ViT-B/16), grouped by dataset
 ├── table4/<dataset>/*.log     # per-run logs (ViT-B/32), grouped by dataset
+├── table5/<dataset>/*.log     # per-run logs (ViT-L/14), grouped by dataset
 └── fig3/<dataset>/*.log       # per-run logs (ablations), grouped by dataset
 ```
 The per-run log directories are git-ignored; `clip_lora_results.csv` / `clip_lora_summary.csv`
