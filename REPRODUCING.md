@@ -50,31 +50,53 @@ These are downloaded, extracted, and restructured automatically by the script:
 ### 2b. Manual datasets — place the archive first, then the script extracts it
 
 #### ImageNet (ILSVRC2012) — the big one (~144 GB, ~2.5 h to download)
-Requires a (free) account. Download the three files from:
+Requires a (free) account. First **sign up / log in** at image-net.org, then go to the
+downloads page:
 <https://www.image-net.org/challenges/LSVRC/2012/2012-downloads.php>
 
-| File on the site | Size | MD5 | Rename to |
+You need these three files:
+
+| File on the site | Size | MD5 | Saves as (the link's own filename) |
 |:--|:--|:--|:--|
 | Training images (Task 1 & 2) | 138 GB | `1d675b47d978889d74fa0da5fadfb00e` | `ILSVRC2012_img_train.tar` |
 | Validation images (all tasks) | 6.3 GB | `29b22e2961454d5413ddabcf34fc5622` | `ILSVRC2012_img_val.tar` |
 | Development kit (Task 1 & 2) | 2.5 MB | — | `ILSVRC2012_devkit_t12.tar.gz` |
 
-1. Verify the downloads (optional but recommended for 144 GB):
+Easiest way to pull them straight onto the server (no browser download + re-upload):
+
+1. On the downloads page, **do not left-click** the links ("Training images (Task 1 & 2)",
+   "Validation images (all tasks)", "Development kit (Task 1 & 2)"). Instead **right-click each
+   link → "Copy link address"** (Chrome) / "Copy Link" (Firefox/Safari). The copied URL already
+   ends in the correct filename (e.g. `.../ILSVRC2012_img_train.tar`), so `wget` saves it with
+   the right name — no renaming needed.
+2. In the terminal, go to the datasets folder and `wget` each copied URL:
+   ```bash
+   cd reproducing-clip-lora/datasets
+   wget "<paste copied Training images URL>"      # ILSVRC2012_img_train.tar  (138 GB, the long one)
+   wget "<paste copied Validation images URL>"     # ILSVRC2012_img_val.tar    (6.3 GB)
+   wget "<paste copied Development kit URL>"        # ILSVRC2012_devkit_t12.tar.gz
+   ```
+   (Keep the quotes — the URLs contain `&` and other characters the shell would otherwise split on.)
+3. Verify the downloads (optional but recommended for 144 GB):
    ```bash
    md5sum ILSVRC2012_img_train.tar ILSVRC2012_img_val.tar
    ```
-2. Make sure they have exactly the names in the table above, then move all three into
-   `reproducing-clip-lora/datasets/`.
-3. The downloader (step 2c) will extract the train tar + its 1,000 synset sub-tars, extract
-   the val tar, and run `valprep.sh` to sort the 50,000 flat val images into class folders.
-   (Why `valprep.sh` is needed: see `docs/reproduction_notes.md` §4.)
+   The sums must match the table above.
+
+That's the whole manual part — just leave the three tarballs in `reproducing-clip-lora/datasets/`.
+Everything else (extracting the train tar + its 1,000 synset sub-tars, extracting the val tar,
+and running `valprep.sh` to sort the 50,000 flat val images into class folders) is done
+**automatically** by `download_datasets.sh` in step 2c. (Why `valprep.sh` is needed: see
+`docs/reproduction_notes.md` §4.)
 
 #### StanfordCars (~2 GB) — original servers are dead, use Kaggle
-Download from <https://www.kaggle.com/datasets/rickyyyyyyy/torchvision-stanford-cars>
-(website "Download" button, or `kaggle datasets download -d rickyyyyyyy/torchvision-stanford-cars`).
+This one has to be **downloaded manually** from Kaggle (it needs a Kaggle login, so `wget`
+won't work on the link directly). On your own machine, open:
+<https://www.kaggle.com/datasets/rickyyyyyyy/torchvision-stanford-cars>
+and click the **"Download"** button (or `kaggle datasets download -d rickyyyyyyy/torchvision-stanford-cars`).
 
-- **Rename the downloaded zip to `stanford_cars.zip`** and move it into
-  `reproducing-clip-lora/datasets/`.
+- **Rename the downloaded zip to `stanford_cars.zip`** and put it into
+  `reproducing-clip-lora/datasets/` (upload it to the server there if you downloaded on a laptop).
 - The downloader will unzip it and restructure it into `datasets/StanfordCars/` automatically.
 
 #### SUN397 — skipped
@@ -117,6 +139,12 @@ good.
 ---
 
 ## 4. Run the experiments
+
+> **Reproduction progress (as of this writing):**
+> - ✅ **Table 3 (ViT-B/16)** — complete (150/150 runs, 0 failed)
+> - ✅ **Figure 3 — EuroSAT** — complete (129/129 runs, 0 failed)
+> - ⏳ **Figure 3 — ImageNet** — in progress
+> - ⬜ **Table 4 (ViT-B/32)** and **Figure 3 — StanfordCars** — not started yet
 
 Run from the repo root (`reproducing-clip-lora/`) so `logs/` lands here. Master logs go to
 `logs/` (git-ignored); per-run logs and result CSVs go under `results/` (committed).
