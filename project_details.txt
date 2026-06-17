@@ -1,7 +1,7 @@
 Course: 192.039 - 2026S - Deep Learning for Natural Language Processing 
 
 Group members: Hasan Berke Bankoglu, Zarek Asif
-Student numbers: 12432802, <student_number>
+Student numbers: 12432802, 12432949
 
 Paper: Low-Rank Few-Shot Adaptation of Vision-Language Models
 Link: https://arxiv.org/pdf/2405.18541
