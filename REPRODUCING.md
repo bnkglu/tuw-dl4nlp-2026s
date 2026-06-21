@@ -144,7 +144,7 @@ good.
 > - ✅ **Table 3 (ViT-B/16)** — complete (150/150 runs, 0 failed)
 > - ✅ **Figure 3 — EuroSAT** — complete (129/129 runs, 0 failed)
 > - ✅ **Figure 3 — ImageNet** — complete (129/129 runs, 0 failed)
-> - ⏳ **Table 5 (ViT-L/14)** — in progress
+> - ✅ **Table 5 (ViT-L/14)** — complete (150/150 runs, 0 failed)
 > - ⬜ **Table 4 (ViT-B/32)** and **Figure 3 — StanfordCars** — not started yet
 
 Run from the repo root (`reproducing-clip-lora/`) so `logs/` lands here. Master logs go to
