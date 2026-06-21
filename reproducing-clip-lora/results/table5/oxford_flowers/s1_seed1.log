@@ -1,0 +1,702 @@
+Preparing dataset.
+Reading split from datasets/Flower102/split_zhou_OxfordFlowers.json
+Creating a 1-shot dataset
+Creating a 1-shot dataset
+
+Getting textual features as CLIP's classifier.
+
+Loading visual features and labels from val set.
+  0%|          | 0/1 [00:00<?, ?it/s]100%|██████████| 1/1 [00:02<00:00,  2.02s/it]100%|██████████| 1/1 [00:02<00:00,  2.12s/it]
+
+Loading visual features and labels from test set.
+  0%|          | 0/10 [00:00<?, ?it/s] 10%|█         | 1/10 [00:06<00:57,  6.42s/it] 20%|██        | 2/10 [00:07<00:25,  3.25s/it] 30%|███       | 3/10 [00:08<00:15,  2.16s/it] 40%|████      | 4/10 [00:09<00:09,  1.62s/it] 50%|█████     | 5/10 [00:09<00:06,  1.33s/it] 60%|██████    | 6/10 [00:10<00:04,  1.15s/it] 70%|███████   | 7/10 [00:11<00:03,  1.03s/it] 80%|████████  | 8/10 [00:12<00:01,  1.04it/s] 90%|█████████ | 9/10 [00:13<00:00,  1.10it/s]100%|██████████| 10/10 [00:13<00:00,  1.28it/s]100%|██████████| 10/10 [00:13<00:00,  1.37s/it]
+
+**** Zero-shot CLIP's test accuracy: 76.21. ****
+
+Residual Attention Block 0: ResidualAttentionBlock(
+  (attn): MultiheadAttention(
+    (out_proj): NonDynamicallyQuantizableLinear(in_features=768, out_features=768, bias=True)
+  )
+  (ln_1): LayerNorm((768,), eps=1e-05, elementwise_affine=True)
+  (mlp): Sequential(
+    (c_fc): Linear(in_features=768, out_features=3072, bias=True)
+    (gelu): QuickGELU()
+    (c_proj): Linear(in_features=3072, out_features=768, bias=True)
+  )
+  (ln_2): LayerNorm((768,), eps=1e-05, elementwise_affine=True)
+)
+Residual Attention Block 1: ResidualAttentionBlock(
+  (attn): MultiheadAttention(
+    (out_proj): NonDynamicallyQuantizableLinear(in_features=768, out_features=768, bias=True)
+  )
+  (ln_1): LayerNorm((768,), eps=1e-05, elementwise_affine=True)
+  (mlp): Sequential(
+    (c_fc): Linear(in_features=768, out_features=3072, bias=True)
+    (gelu): QuickGELU()
+    (c_proj): Linear(in_features=3072, out_features=768, bias=True)
+  )
+  (ln_2): LayerNorm((768,), eps=1e-05, elementwise_affine=True)
+)
+Residual Attention Block 2: ResidualAttentionBlock(
+  (attn): MultiheadAttention(
+    (out_proj): NonDynamicallyQuantizableLinear(in_features=768, out_features=768, bias=True)
+  )
+  (ln_1): LayerNorm((768,), eps=1e-05, elementwise_affine=True)
+  (mlp): Sequential(
+    (c_fc): Linear(in_features=768, out_features=3072, bias=True)
+    (gelu): QuickGELU()
+    (c_proj): Linear(in_features=3072, out_features=768, bias=True)
+  )
+  (ln_2): LayerNorm((768,), eps=1e-05, elementwise_affine=True)
+)
+Residual Attention Block 3: ResidualAttentionBlock(
+  (attn): MultiheadAttention(
+    (out_proj): NonDynamicallyQuantizableLinear(in_features=768, out_features=768, bias=True)
+  )
+  (ln_1): LayerNorm((768,), eps=1e-05, elementwise_affine=True)
+  (mlp): Sequential(
+    (c_fc): Linear(in_features=768, out_features=3072, bias=True)
+    (gelu): QuickGELU()
+    (c_proj): Linear(in_features=3072, out_features=768, bias=True)
+  )
+  (ln_2): LayerNorm((768,), eps=1e-05, elementwise_affine=True)
+)
+Residual Attention Block 4: ResidualAttentionBlock(
+  (attn): MultiheadAttention(
+    (out_proj): NonDynamicallyQuantizableLinear(in_features=768, out_features=768, bias=True)
+  )
+  (ln_1): LayerNorm((768,), eps=1e-05, elementwise_affine=True)
+  (mlp): Sequential(
+    (c_fc): Linear(in_features=768, out_features=3072, bias=True)
+    (gelu): QuickGELU()
+    (c_proj): Linear(in_features=3072, out_features=768, bias=True)
+  )
+  (ln_2): LayerNorm((768,), eps=1e-05, elementwise_affine=True)
+)
+Residual Attention Block 5: ResidualAttentionBlock(
+  (attn): MultiheadAttention(
+    (out_proj): NonDynamicallyQuantizableLinear(in_features=768, out_features=768, bias=True)
+  )
+  (ln_1): LayerNorm((768,), eps=1e-05, elementwise_affine=True)
+  (mlp): Sequential(
+    (c_fc): Linear(in_features=768, out_features=3072, bias=True)
+    (gelu): QuickGELU()
+    (c_proj): Linear(in_features=3072, out_features=768, bias=True)
+  )
+  (ln_2): LayerNorm((768,), eps=1e-05, elementwise_affine=True)
+)
+Residual Attention Block 6: ResidualAttentionBlock(
+  (attn): MultiheadAttention(
+    (out_proj): NonDynamicallyQuantizableLinear(in_features=768, out_features=768, bias=True)
+  )
+  (ln_1): LayerNorm((768,), eps=1e-05, elementwise_affine=True)
+  (mlp): Sequential(
+    (c_fc): Linear(in_features=768, out_features=3072, bias=True)
+    (gelu): QuickGELU()
+    (c_proj): Linear(in_features=3072, out_features=768, bias=True)
+  )
+  (ln_2): LayerNorm((768,), eps=1e-05, elementwise_affine=True)
+)
+Residual Attention Block 7: ResidualAttentionBlock(
+  (attn): MultiheadAttention(
+    (out_proj): NonDynamicallyQuantizableLinear(in_features=768, out_features=768, bias=True)
+  )
+  (ln_1): LayerNorm((768,), eps=1e-05, elementwise_affine=True)
+  (mlp): Sequential(
+    (c_fc): Linear(in_features=768, out_features=3072, bias=True)
+    (gelu): QuickGELU()
+    (c_proj): Linear(in_features=3072, out_features=768, bias=True)
+  )
+  (ln_2): LayerNorm((768,), eps=1e-05, elementwise_affine=True)
+)
+Residual Attention Block 8: ResidualAttentionBlock(
+  (attn): MultiheadAttention(
+    (out_proj): NonDynamicallyQuantizableLinear(in_features=768, out_features=768, bias=True)
+  )
+  (ln_1): LayerNorm((768,), eps=1e-05, elementwise_affine=True)
+  (mlp): Sequential(
+    (c_fc): Linear(in_features=768, out_features=3072, bias=True)
+    (gelu): QuickGELU()
+    (c_proj): Linear(in_features=3072, out_features=768, bias=True)
+  )
+  (ln_2): LayerNorm((768,), eps=1e-05, elementwise_affine=True)
+)
+Residual Attention Block 9: ResidualAttentionBlock(
+  (attn): MultiheadAttention(
+    (out_proj): NonDynamicallyQuantizableLinear(in_features=768, out_features=768, bias=True)
+  )
+  (ln_1): LayerNorm((768,), eps=1e-05, elementwise_affine=True)
+  (mlp): Sequential(
+    (c_fc): Linear(in_features=768, out_features=3072, bias=True)
+    (gelu): QuickGELU()
+    (c_proj): Linear(in_features=3072, out_features=768, bias=True)
+  )
+  (ln_2): LayerNorm((768,), eps=1e-05, elementwise_affine=True)
+)
+Residual Attention Block 10: ResidualAttentionBlock(
+  (attn): MultiheadAttention(
+    (out_proj): NonDynamicallyQuantizableLinear(in_features=768, out_features=768, bias=True)
+  )
+  (ln_1): LayerNorm((768,), eps=1e-05, elementwise_affine=True)
+  (mlp): Sequential(
+    (c_fc): Linear(in_features=768, out_features=3072, bias=True)
+    (gelu): QuickGELU()
+    (c_proj): Linear(in_features=3072, out_features=768, bias=True)
+  )
+  (ln_2): LayerNorm((768,), eps=1e-05, elementwise_affine=True)
+)
+Residual Attention Block 11: ResidualAttentionBlock(
+  (attn): MultiheadAttention(
+    (out_proj): NonDynamicallyQuantizableLinear(in_features=768, out_features=768, bias=True)
+  )
+  (ln_1): LayerNorm((768,), eps=1e-05, elementwise_affine=True)
+  (mlp): Sequential(
+    (c_fc): Linear(in_features=768, out_features=3072, bias=True)
+    (gelu): QuickGELU()
+    (c_proj): Linear(in_features=3072, out_features=768, bias=True)
+  )
+  (ln_2): LayerNorm((768,), eps=1e-05, elementwise_affine=True)
+)
+Residual Attention Block 0: ResidualAttentionBlock(
+  (attn): MultiheadAttention(
+    (out_proj): NonDynamicallyQuantizableLinear(in_features=1024, out_features=1024, bias=True)
+  )
+  (ln_1): LayerNorm((1024,), eps=1e-05, elementwise_affine=True)
+  (mlp): Sequential(
+    (c_fc): Linear(in_features=1024, out_features=4096, bias=True)
+    (gelu): QuickGELU()
+    (c_proj): Linear(in_features=4096, out_features=1024, bias=True)
+  )
+  (ln_2): LayerNorm((1024,), eps=1e-05, elementwise_affine=True)
+)
+Residual Attention Block 1: ResidualAttentionBlock(
+  (attn): MultiheadAttention(
+    (out_proj): NonDynamicallyQuantizableLinear(in_features=1024, out_features=1024, bias=True)
+  )
+  (ln_1): LayerNorm((1024,), eps=1e-05, elementwise_affine=True)
+  (mlp): Sequential(
+    (c_fc): Linear(in_features=1024, out_features=4096, bias=True)
+    (gelu): QuickGELU()
+    (c_proj): Linear(in_features=4096, out_features=1024, bias=True)
+  )
+  (ln_2): LayerNorm((1024,), eps=1e-05, elementwise_affine=True)
+)
+Residual Attention Block 2: ResidualAttentionBlock(
+  (attn): MultiheadAttention(
+    (out_proj): NonDynamicallyQuantizableLinear(in_features=1024, out_features=1024, bias=True)
+  )
+  (ln_1): LayerNorm((1024,), eps=1e-05, elementwise_affine=True)
+  (mlp): Sequential(
+    (c_fc): Linear(in_features=1024, out_features=4096, bias=True)
+    (gelu): QuickGELU()
+    (c_proj): Linear(in_features=4096, out_features=1024, bias=True)
+  )
+  (ln_2): LayerNorm((1024,), eps=1e-05, elementwise_affine=True)
+)
+Residual Attention Block 3: ResidualAttentionBlock(
+  (attn): MultiheadAttention(
+    (out_proj): NonDynamicallyQuantizableLinear(in_features=1024, out_features=1024, bias=True)
+  )
+  (ln_1): LayerNorm((1024,), eps=1e-05, elementwise_affine=True)
+  (mlp): Sequential(
+    (c_fc): Linear(in_features=1024, out_features=4096, bias=True)
+    (gelu): QuickGELU()
+    (c_proj): Linear(in_features=4096, out_features=1024, bias=True)
+  )
+  (ln_2): LayerNorm((1024,), eps=1e-05, elementwise_affine=True)
+)
+Residual Attention Block 4: ResidualAttentionBlock(
+  (attn): MultiheadAttention(
+    (out_proj): NonDynamicallyQuantizableLinear(in_features=1024, out_features=1024, bias=True)
+  )
+  (ln_1): LayerNorm((1024,), eps=1e-05, elementwise_affine=True)
+  (mlp): Sequential(
+    (c_fc): Linear(in_features=1024, out_features=4096, bias=True)
+    (gelu): QuickGELU()
+    (c_proj): Linear(in_features=4096, out_features=1024, bias=True)
+  )
+  (ln_2): LayerNorm((1024,), eps=1e-05, elementwise_affine=True)
+)
+Residual Attention Block 5: ResidualAttentionBlock(
+  (attn): MultiheadAttention(
+    (out_proj): NonDynamicallyQuantizableLinear(in_features=1024, out_features=1024, bias=True)
+  )
+  (ln_1): LayerNorm((1024,), eps=1e-05, elementwise_affine=True)
+  (mlp): Sequential(
+    (c_fc): Linear(in_features=1024, out_features=4096, bias=True)
+    (gelu): QuickGELU()
+    (c_proj): Linear(in_features=4096, out_features=1024, bias=True)
+  )
+  (ln_2): LayerNorm((1024,), eps=1e-05, elementwise_affine=True)
+)
+Residual Attention Block 6: ResidualAttentionBlock(
+  (attn): MultiheadAttention(
+    (out_proj): NonDynamicallyQuantizableLinear(in_features=1024, out_features=1024, bias=True)
+  )
+  (ln_1): LayerNorm((1024,), eps=1e-05, elementwise_affine=True)
+  (mlp): Sequential(
+    (c_fc): Linear(in_features=1024, out_features=4096, bias=True)
+    (gelu): QuickGELU()
+    (c_proj): Linear(in_features=4096, out_features=1024, bias=True)
+  )
+  (ln_2): LayerNorm((1024,), eps=1e-05, elementwise_affine=True)
+)
+Residual Attention Block 7: ResidualAttentionBlock(
+  (attn): MultiheadAttention(
+    (out_proj): NonDynamicallyQuantizableLinear(in_features=1024, out_features=1024, bias=True)
+  )
+  (ln_1): LayerNorm((1024,), eps=1e-05, elementwise_affine=True)
+  (mlp): Sequential(
+    (c_fc): Linear(in_features=1024, out_features=4096, bias=True)
+    (gelu): QuickGELU()
+    (c_proj): Linear(in_features=4096, out_features=1024, bias=True)
+  )
+  (ln_2): LayerNorm((1024,), eps=1e-05, elementwise_affine=True)
+)
+Residual Attention Block 8: ResidualAttentionBlock(
+  (attn): MultiheadAttention(
+    (out_proj): NonDynamicallyQuantizableLinear(in_features=1024, out_features=1024, bias=True)
+  )
+  (ln_1): LayerNorm((1024,), eps=1e-05, elementwise_affine=True)
+  (mlp): Sequential(
+    (c_fc): Linear(in_features=1024, out_features=4096, bias=True)
+    (gelu): QuickGELU()
+    (c_proj): Linear(in_features=4096, out_features=1024, bias=True)
+  )
+  (ln_2): LayerNorm((1024,), eps=1e-05, elementwise_affine=True)
+)
+Residual Attention Block 9: ResidualAttentionBlock(
+  (attn): MultiheadAttention(
+    (out_proj): NonDynamicallyQuantizableLinear(in_features=1024, out_features=1024, bias=True)
+  )
+  (ln_1): LayerNorm((1024,), eps=1e-05, elementwise_affine=True)
+  (mlp): Sequential(
+    (c_fc): Linear(in_features=1024, out_features=4096, bias=True)
+    (gelu): QuickGELU()
+    (c_proj): Linear(in_features=4096, out_features=1024, bias=True)
+  )
+  (ln_2): LayerNorm((1024,), eps=1e-05, elementwise_affine=True)
+)
+Residual Attention Block 10: ResidualAttentionBlock(
+  (attn): MultiheadAttention(
+    (out_proj): NonDynamicallyQuantizableLinear(in_features=1024, out_features=1024, bias=True)
+  )
+  (ln_1): LayerNorm((1024,), eps=1e-05, elementwise_affine=True)
+  (mlp): Sequential(
+    (c_fc): Linear(in_features=1024, out_features=4096, bias=True)
+    (gelu): QuickGELU()
+    (c_proj): Linear(in_features=4096, out_features=1024, bias=True)
+  )
+  (ln_2): LayerNorm((1024,), eps=1e-05, elementwise_affine=True)
+)
+Residual Attention Block 11: ResidualAttentionBlock(
+  (attn): MultiheadAttention(
+    (out_proj): NonDynamicallyQuantizableLinear(in_features=1024, out_features=1024, bias=True)
+  )
+  (ln_1): LayerNorm((1024,), eps=1e-05, elementwise_affine=True)
+  (mlp): Sequential(
+    (c_fc): Linear(in_features=1024, out_features=4096, bias=True)
+    (gelu): QuickGELU()
+    (c_proj): Linear(in_features=4096, out_features=1024, bias=True)
+  )
+  (ln_2): LayerNorm((1024,), eps=1e-05, elementwise_affine=True)
+)
+Residual Attention Block 12: ResidualAttentionBlock(
+  (attn): MultiheadAttention(
+    (out_proj): NonDynamicallyQuantizableLinear(in_features=1024, out_features=1024, bias=True)
+  )
+  (ln_1): LayerNorm((1024,), eps=1e-05, elementwise_affine=True)
+  (mlp): Sequential(
+    (c_fc): Linear(in_features=1024, out_features=4096, bias=True)
+    (gelu): QuickGELU()
+    (c_proj): Linear(in_features=4096, out_features=1024, bias=True)
+  )
+  (ln_2): LayerNorm((1024,), eps=1e-05, elementwise_affine=True)
+)
+Residual Attention Block 13: ResidualAttentionBlock(
+  (attn): MultiheadAttention(
+    (out_proj): NonDynamicallyQuantizableLinear(in_features=1024, out_features=1024, bias=True)
+  )
+  (ln_1): LayerNorm((1024,), eps=1e-05, elementwise_affine=True)
+  (mlp): Sequential(
+    (c_fc): Linear(in_features=1024, out_features=4096, bias=True)
+    (gelu): QuickGELU()
+    (c_proj): Linear(in_features=4096, out_features=1024, bias=True)
+  )
+  (ln_2): LayerNorm((1024,), eps=1e-05, elementwise_affine=True)
+)
+Residual Attention Block 14: ResidualAttentionBlock(
+  (attn): MultiheadAttention(
+    (out_proj): NonDynamicallyQuantizableLinear(in_features=1024, out_features=1024, bias=True)
+  )
+  (ln_1): LayerNorm((1024,), eps=1e-05, elementwise_affine=True)
+  (mlp): Sequential(
+    (c_fc): Linear(in_features=1024, out_features=4096, bias=True)
+    (gelu): QuickGELU()
+    (c_proj): Linear(in_features=4096, out_features=1024, bias=True)
+  )
+  (ln_2): LayerNorm((1024,), eps=1e-05, elementwise_affine=True)
+)
+Residual Attention Block 15: ResidualAttentionBlock(
+  (attn): MultiheadAttention(
+    (out_proj): NonDynamicallyQuantizableLinear(in_features=1024, out_features=1024, bias=True)
+  )
+  (ln_1): LayerNorm((1024,), eps=1e-05, elementwise_affine=True)
+  (mlp): Sequential(
+    (c_fc): Linear(in_features=1024, out_features=4096, bias=True)
+    (gelu): QuickGELU()
+    (c_proj): Linear(in_features=4096, out_features=1024, bias=True)
+  )
+  (ln_2): LayerNorm((1024,), eps=1e-05, elementwise_affine=True)
+)
+Residual Attention Block 16: ResidualAttentionBlock(
+  (attn): MultiheadAttention(
+    (out_proj): NonDynamicallyQuantizableLinear(in_features=1024, out_features=1024, bias=True)
+  )
+  (ln_1): LayerNorm((1024,), eps=1e-05, elementwise_affine=True)
+  (mlp): Sequential(
+    (c_fc): Linear(in_features=1024, out_features=4096, bias=True)
+    (gelu): QuickGELU()
+    (c_proj): Linear(in_features=4096, out_features=1024, bias=True)
+  )
+  (ln_2): LayerNorm((1024,), eps=1e-05, elementwise_affine=True)
+)
+Residual Attention Block 17: ResidualAttentionBlock(
+  (attn): MultiheadAttention(
+    (out_proj): NonDynamicallyQuantizableLinear(in_features=1024, out_features=1024, bias=True)
+  )
+  (ln_1): LayerNorm((1024,), eps=1e-05, elementwise_affine=True)
+  (mlp): Sequential(
+    (c_fc): Linear(in_features=1024, out_features=4096, bias=True)
+    (gelu): QuickGELU()
+    (c_proj): Linear(in_features=4096, out_features=1024, bias=True)
+  )
+  (ln_2): LayerNorm((1024,), eps=1e-05, elementwise_affine=True)
+)
+Residual Attention Block 18: ResidualAttentionBlock(
+  (attn): MultiheadAttention(
+    (out_proj): NonDynamicallyQuantizableLinear(in_features=1024, out_features=1024, bias=True)
+  )
+  (ln_1): LayerNorm((1024,), eps=1e-05, elementwise_affine=True)
+  (mlp): Sequential(
+    (c_fc): Linear(in_features=1024, out_features=4096, bias=True)
+    (gelu): QuickGELU()
+    (c_proj): Linear(in_features=4096, out_features=1024, bias=True)
+  )
+  (ln_2): LayerNorm((1024,), eps=1e-05, elementwise_affine=True)
+)
+Residual Attention Block 19: ResidualAttentionBlock(
+  (attn): MultiheadAttention(
+    (out_proj): NonDynamicallyQuantizableLinear(in_features=1024, out_features=1024, bias=True)
+  )
+  (ln_1): LayerNorm((1024,), eps=1e-05, elementwise_affine=True)
+  (mlp): Sequential(
+    (c_fc): Linear(in_features=1024, out_features=4096, bias=True)
+    (gelu): QuickGELU()
+    (c_proj): Linear(in_features=4096, out_features=1024, bias=True)
+  )
+  (ln_2): LayerNorm((1024,), eps=1e-05, elementwise_affine=True)
+)
+Residual Attention Block 20: ResidualAttentionBlock(
+  (attn): MultiheadAttention(
+    (out_proj): NonDynamicallyQuantizableLinear(in_features=1024, out_features=1024, bias=True)
+  )
+  (ln_1): LayerNorm((1024,), eps=1e-05, elementwise_affine=True)
+  (mlp): Sequential(
+    (c_fc): Linear(in_features=1024, out_features=4096, bias=True)
+    (gelu): QuickGELU()
+    (c_proj): Linear(in_features=4096, out_features=1024, bias=True)
+  )
+  (ln_2): LayerNorm((1024,), eps=1e-05, elementwise_affine=True)
+)
+Residual Attention Block 21: ResidualAttentionBlock(
+  (attn): MultiheadAttention(
+    (out_proj): NonDynamicallyQuantizableLinear(in_features=1024, out_features=1024, bias=True)
+  )
+  (ln_1): LayerNorm((1024,), eps=1e-05, elementwise_affine=True)
+  (mlp): Sequential(
+    (c_fc): Linear(in_features=1024, out_features=4096, bias=True)
+    (gelu): QuickGELU()
+    (c_proj): Linear(in_features=4096, out_features=1024, bias=True)
+  )
+  (ln_2): LayerNorm((1024,), eps=1e-05, elementwise_affine=True)
+)/home/jovyan/lectures/dl4nlp/tuw-dl4nlp-2026s/reproducing-clip-lora/lora.py:82: FutureWarning: `torch.cuda.amp.GradScaler(args...)` is deprecated. Please use `torch.amp.GradScaler('cuda', args...)` instead.
+  scaler = torch.cuda.amp.GradScaler()
+
+Residual Attention Block 22: ResidualAttentionBlock(
+  (attn): MultiheadAttention(
+    (out_proj): NonDynamicallyQuantizableLinear(in_features=1024, out_features=1024, bias=True)
+  )
+  (ln_1): LayerNorm((1024,), eps=1e-05, elementwise_affine=True)
+  (mlp): Sequential(
+    (c_fc): Linear(in_features=1024, out_features=4096, bias=True)
+    (gelu): QuickGELU()
+    (c_proj): Linear(in_features=4096, out_features=1024, bias=True)
+  )
+  (ln_2): LayerNorm((1024,), eps=1e-05, elementwise_affine=True)
+)
+Residual Attention Block 23: ResidualAttentionBlock(
+  (attn): MultiheadAttention(
+    (out_proj): NonDynamicallyQuantizableLinear(in_features=1024, out_features=1024, bias=True)
+  )
+  (ln_1): LayerNorm((1024,), eps=1e-05, elementwise_affine=True)
+  (mlp): Sequential(
+    (c_fc): Linear(in_features=1024, out_features=4096, bias=True)
+    (gelu): QuickGELU()
+    (c_proj): Linear(in_features=4096, out_features=1024, bias=True)
+  )
+  (ln_2): LayerNorm((1024,), eps=1e-05, elementwise_affine=True)
+)
+  0%|          | 0/4 [00:00<?, ?it/s]/home/jovyan/lectures/dl4nlp/tuw-dl4nlp-2026s/reproducing-clip-lora/.venv/lib/python3.11/site-packages/torch/optim/lr_scheduler.py:224: UserWarning: Detected call of `lr_scheduler.step()` before `optimizer.step()`. In PyTorch 1.1.0 and later, you should call them in the opposite order: `optimizer.step()` before `lr_scheduler.step()`.  Failure to do this will result in PyTorch skipping the first value of the learning rate schedule. See more details at https://pytorch.org/docs/stable/optim.html#how-to-adjust-learning-rate
+  warnings.warn(
+ 25%|██▌       | 1/4 [00:01<00:04,  1.45s/it] 50%|█████     | 2/4 [00:02<00:01,  1.05it/s] 75%|███████▌  | 3/4 [00:02<00:00,  1.37it/s]100%|██████████| 4/4 [00:02<00:00,  1.78it/s]100%|██████████| 4/4 [00:02<00:00,  1.38it/s]
+LR: 0.000200, Acc: 60.7843, Loss: 1.5684
+  0%|          | 0/4 [00:00<?, ?it/s] 25%|██▌       | 1/4 [00:00<00:02,  1.18it/s] 50%|█████     | 2/4 [00:01<00:01,  1.62it/s] 75%|███████▌  | 3/4 [00:01<00:00,  1.84it/s]100%|██████████| 4/4 [00:01<00:00,  2.48it/s]100%|██████████| 4/4 [00:02<00:00,  1.94it/s]
+LR: 0.000200, Acc: 66.6667, Loss: 1.5688
+  0%|          | 0/4 [00:00<?, ?it/s] 25%|██▌       | 1/4 [00:00<00:02,  1.11it/s] 50%|█████     | 2/4 [00:01<00:01,  1.56it/s] 75%|███████▌  | 3/4 [00:01<00:00,  1.80it/s]100%|██████████| 4/4 [00:02<00:00,  2.43it/s]100%|██████████| 4/4 [00:02<00:00,  1.93it/s]
+LR: 0.000200, Acc: 68.6275, Loss: 1.5728
+  0%|          | 0/4 [00:00<?, ?it/s] 25%|██▌       | 1/4 [00:00<00:02,  1.14it/s] 50%|█████     | 2/4 [00:01<00:01,  1.59it/s] 75%|███████▌  | 3/4 [00:01<00:00,  1.82it/s]100%|██████████| 4/4 [00:01<00:00,  2.44it/s]100%|██████████| 4/4 [00:02<00:00,  1.93it/s]
+LR: 0.000199, Acc: 68.6275, Loss: 1.6077
+  0%|          | 0/4 [00:00<?, ?it/s] 25%|██▌       | 1/4 [00:00<00:02,  1.09it/s] 50%|█████     | 2/4 [00:01<00:01,  1.55it/s] 75%|███████▌  | 3/4 [00:01<00:00,  1.79it/s]100%|██████████| 4/4 [00:02<00:00,  2.42it/s]100%|██████████| 4/4 [00:02<00:00,  1.85it/s]
+LR: 0.000199, Acc: 68.6275, Loss: 1.5982
+  0%|          | 0/4 [00:00<?, ?it/s] 25%|██▌       | 1/4 [00:00<00:02,  1.07it/s] 50%|█████     | 2/4 [00:01<00:01,  1.53it/s] 75%|███████▌  | 3/4 [00:01<00:00,  1.78it/s]100%|██████████| 4/4 [00:02<00:00,  2.40it/s]100%|██████████| 4/4 [00:02<00:00,  1.87it/s]
+LR: 0.000199, Acc: 70.5882, Loss: 1.4323
+  0%|          | 0/4 [00:00<?, ?it/s] 25%|██▌       | 1/4 [00:00<00:02,  1.10it/s] 50%|█████     | 2/4 [00:01<00:01,  1.56it/s] 75%|███████▌  | 3/4 [00:01<00:00,  1.80it/s]100%|██████████| 4/4 [00:02<00:00,  2.41it/s]100%|██████████| 4/4 [00:02<00:00,  1.92it/s]
+LR: 0.000198, Acc: 69.6078, Loss: 1.3618
+  0%|          | 0/4 [00:00<?, ?it/s] 25%|██▌       | 1/4 [00:00<00:02,  1.18it/s] 50%|█████     | 2/4 [00:01<00:01,  1.62it/s] 75%|███████▌  | 3/4 [00:01<00:00,  1.84it/s]100%|██████████| 4/4 [00:01<00:00,  2.47it/s]100%|██████████| 4/4 [00:02<00:00,  1.94it/s]
+LR: 0.000198, Acc: 73.5294, Loss: 1.3746
+  0%|          | 0/4 [00:00<?, ?it/s] 25%|██▌       | 1/4 [00:00<00:02,  1.04it/s] 50%|█████     | 2/4 [00:01<00:01,  1.51it/s] 75%|███████▌  | 3/4 [00:01<00:00,  1.76it/s]100%|██████████| 4/4 [00:02<00:00,  2.37it/s]100%|██████████| 4/4 [00:02<00:00,  1.85it/s]
+LR: 0.000197, Acc: 74.5098, Loss: 1.3067
+  0%|          | 0/4 [00:00<?, ?it/s] 25%|██▌       | 1/4 [00:00<00:02,  1.07it/s] 50%|█████     | 2/4 [00:01<00:01,  1.53it/s] 75%|███████▌  | 3/4 [00:01<00:00,  1.78it/s]100%|██████████| 4/4 [00:02<00:00,  2.40it/s]100%|██████████| 4/4 [00:02<00:00,  1.86it/s]
+LR: 0.000197, Acc: 72.5490, Loss: 1.2037
+  0%|          | 0/4 [00:00<?, ?it/s] 25%|██▌       | 1/4 [00:00<00:02,  1.12it/s] 50%|█████     | 2/4 [00:01<00:01,  1.58it/s] 75%|███████▌  | 3/4 [00:01<00:00,  1.81it/s]100%|██████████| 4/4 [00:01<00:00,  2.44it/s]100%|██████████| 4/4 [00:02<00:00,  1.94it/s]
+LR: 0.000196, Acc: 76.4706, Loss: 1.0990
+  0%|          | 0/4 [00:00<?, ?it/s] 25%|██▌       | 1/4 [00:00<00:02,  1.17it/s] 50%|█████     | 2/4 [00:01<00:01,  1.61it/s] 75%|███████▌  | 3/4 [00:01<00:00,  1.84it/s]100%|██████████| 4/4 [00:01<00:00,  2.47it/s]100%|██████████| 4/4 [00:02<00:00,  1.96it/s]
+LR: 0.000196, Acc: 73.5294, Loss: 1.0405
+  0%|          | 0/4 [00:00<?, ?it/s] 25%|██▌       | 1/4 [00:00<00:02,  1.04it/s] 50%|█████     | 2/4 [00:01<00:01,  1.50it/s] 75%|███████▌  | 3/4 [00:01<00:00,  1.75it/s]100%|██████████| 4/4 [00:02<00:00,  2.37it/s]100%|██████████| 4/4 [00:02<00:00,  1.86it/s]
+LR: 0.000195, Acc: 77.4510, Loss: 1.0431
+  0%|          | 0/4 [00:00<?, ?it/s] 25%|██▌       | 1/4 [00:00<00:02,  1.09it/s] 50%|█████     | 2/4 [00:01<00:01,  1.55it/s] 75%|███████▌  | 3/4 [00:01<00:00,  1.79it/s]100%|██████████| 4/4 [00:02<00:00,  2.41it/s]100%|██████████| 4/4 [00:02<00:00,  1.88it/s]
+LR: 0.000194, Acc: 77.4510, Loss: 0.8795
+  0%|          | 0/4 [00:00<?, ?it/s] 25%|██▌       | 1/4 [00:00<00:02,  1.00it/s] 50%|█████     | 2/4 [00:01<00:01,  1.46it/s] 75%|███████▌  | 3/4 [00:01<00:00,  1.72it/s]100%|██████████| 4/4 [00:02<00:00,  2.32it/s]100%|██████████| 4/4 [00:02<00:00,  1.80it/s]
+LR: 0.000193, Acc: 80.3922, Loss: 0.7123
+  0%|          | 0/4 [00:00<?, ?it/s] 25%|██▌       | 1/4 [00:00<00:02,  1.05it/s] 50%|█████     | 2/4 [00:01<00:01,  1.50it/s] 75%|███████▌  | 3/4 [00:01<00:00,  1.73it/s]100%|██████████| 4/4 [00:02<00:00,  2.34it/s]100%|██████████| 4/4 [00:02<00:00,  1.84it/s]
+LR: 0.000192, Acc: 77.4510, Loss: 0.7635
+  0%|          | 0/4 [00:00<?, ?it/s] 25%|██▌       | 1/4 [00:00<00:02,  1.00it/s] 50%|█████     | 2/4 [00:01<00:01,  1.47it/s] 75%|███████▌  | 3/4 [00:01<00:00,  1.73it/s]100%|██████████| 4/4 [00:02<00:00,  2.34it/s]100%|██████████| 4/4 [00:02<00:00,  1.82it/s]
+LR: 0.000191, Acc: 82.3529, Loss: 0.8031
+  0%|          | 0/4 [00:00<?, ?it/s] 25%|██▌       | 1/4 [00:00<00:02,  1.03it/s] 50%|█████     | 2/4 [00:01<00:01,  1.49it/s] 75%|███████▌  | 3/4 [00:01<00:00,  1.75it/s]100%|██████████| 4/4 [00:02<00:00,  2.36it/s]100%|██████████| 4/4 [00:02<00:00,  1.86it/s]
+LR: 0.000190, Acc: 82.3529, Loss: 0.6706
+  0%|          | 0/4 [00:00<?, ?it/s] 25%|██▌       | 1/4 [00:00<00:02,  1.13it/s] 50%|█████     | 2/4 [00:01<00:01,  1.58it/s] 75%|███████▌  | 3/4 [00:01<00:00,  1.80it/s]100%|██████████| 4/4 [00:01<00:00,  2.43it/s]100%|██████████| 4/4 [00:02<00:00,  1.86it/s]
+LR: 0.000189, Acc: 84.3137, Loss: 0.5678
+  0%|          | 0/4 [00:00<?, ?it/s] 25%|██▌       | 1/4 [00:00<00:02,  1.05it/s] 50%|█████     | 2/4 [00:01<00:01,  1.51it/s] 75%|███████▌  | 3/4 [00:01<00:00,  1.60it/s]100%|██████████| 4/4 [00:02<00:00,  2.20it/s]100%|██████████| 4/4 [00:02<00:00,  1.77it/s]
+LR: 0.000188, Acc: 85.2941, Loss: 0.5985
+  0%|          | 0/4 [00:00<?, ?it/s] 25%|██▌       | 1/4 [00:00<00:02,  1.16it/s] 50%|█████     | 2/4 [00:01<00:01,  1.60it/s] 75%|███████▌  | 3/4 [00:01<00:00,  1.83it/s]100%|██████████| 4/4 [00:01<00:00,  2.46it/s]100%|██████████| 4/4 [00:02<00:00,  1.95it/s]
+LR: 0.000186, Acc: 86.2745, Loss: 0.5475
+  0%|          | 0/4 [00:00<?, ?it/s] 25%|██▌       | 1/4 [00:00<00:02,  1.03it/s] 50%|█████     | 2/4 [00:01<00:01,  1.50it/s] 75%|███████▌  | 3/4 [00:01<00:00,  1.75it/s]100%|██████████| 4/4 [00:02<00:00,  2.37it/s]100%|██████████| 4/4 [00:02<00:00,  1.84it/s]
+LR: 0.000185, Acc: 84.3137, Loss: 0.5433
+  0%|          | 0/4 [00:00<?, ?it/s] 25%|██▌       | 1/4 [00:00<00:02,  1.07it/s] 50%|█████     | 2/4 [00:01<00:01,  1.53it/s] 75%|███████▌  | 3/4 [00:01<00:00,  1.77it/s]100%|██████████| 4/4 [00:02<00:00,  2.35it/s]100%|██████████| 4/4 [00:02<00:00,  1.87it/s]
+LR: 0.000184, Acc: 87.2549, Loss: 0.5195
+  0%|          | 0/4 [00:00<?, ?it/s] 25%|██▌       | 1/4 [00:00<00:02,  1.16it/s] 50%|█████     | 2/4 [00:01<00:01,  1.60it/s] 75%|███████▌  | 3/4 [00:01<00:00,  1.83it/s]100%|██████████| 4/4 [00:01<00:00,  2.46it/s]100%|██████████| 4/4 [00:02<00:00,  1.93it/s]
+LR: 0.000182, Acc: 89.2157, Loss: 0.4466
+  0%|          | 0/4 [00:00<?, ?it/s] 25%|██▌       | 1/4 [00:01<00:03,  1.06s/it] 50%|█████     | 2/4 [00:01<00:01,  1.42it/s] 75%|███████▌  | 3/4 [00:01<00:00,  1.69it/s]100%|██████████| 4/4 [00:02<00:00,  2.31it/s]100%|██████████| 4/4 [00:02<00:00,  1.77it/s]
+LR: 0.000181, Acc: 93.1373, Loss: 0.2721
+  0%|          | 0/4 [00:00<?, ?it/s] 25%|██▌       | 1/4 [00:00<00:02,  1.08it/s] 50%|█████     | 2/4 [00:01<00:01,  1.54it/s] 75%|███████▌  | 3/4 [00:01<00:00,  1.78it/s]100%|██████████| 4/4 [00:02<00:00,  2.41it/s]100%|██████████| 4/4 [00:02<00:00,  1.90it/s]
+LR: 0.000180, Acc: 96.0784, Loss: 0.2754
+  0%|          | 0/4 [00:00<?, ?it/s] 25%|██▌       | 1/4 [00:00<00:02,  1.15it/s] 50%|█████     | 2/4 [00:01<00:01,  1.59it/s] 75%|███████▌  | 3/4 [00:01<00:00,  1.82it/s]100%|██████████| 4/4 [00:01<00:00,  2.44it/s]100%|██████████| 4/4 [00:02<00:00,  1.94it/s]
+LR: 0.000178, Acc: 90.1961, Loss: 0.3994
+  0%|          | 0/4 [00:00<?, ?it/s] 25%|██▌       | 1/4 [00:00<00:02,  1.22it/s] 50%|█████     | 2/4 [00:01<00:01,  1.65it/s] 75%|███████▌  | 3/4 [00:01<00:00,  1.86it/s]100%|██████████| 4/4 [00:01<00:00,  2.49it/s]100%|██████████| 4/4 [00:02<00:00,  1.96it/s]
+LR: 0.000176, Acc: 94.1176, Loss: 0.3259
+  0%|          | 0/4 [00:00<?, ?it/s] 25%|██▌       | 1/4 [00:00<00:02,  1.09it/s] 50%|█████     | 2/4 [00:01<00:01,  1.54it/s] 75%|███████▌  | 3/4 [00:01<00:00,  1.79it/s]100%|██████████| 4/4 [00:02<00:00,  2.40it/s]100%|██████████| 4/4 [00:02<00:00,  1.90it/s]
+LR: 0.000175, Acc: 91.1765, Loss: 0.3762
+  0%|          | 0/4 [00:00<?, ?it/s] 25%|██▌       | 1/4 [00:00<00:02,  1.16it/s] 50%|█████     | 2/4 [00:01<00:01,  1.59it/s] 75%|███████▌  | 3/4 [00:01<00:00,  1.82it/s]100%|██████████| 4/4 [00:01<00:00,  2.44it/s]100%|██████████| 4/4 [00:02<00:00,  1.87it/s]
+LR: 0.000173, Acc: 89.2157, Loss: 0.3518
+  0%|          | 0/4 [00:00<?, ?it/s] 25%|██▌       | 1/4 [00:00<00:02,  1.04it/s] 50%|█████     | 2/4 [00:01<00:01,  1.50it/s] 75%|███████▌  | 3/4 [00:01<00:00,  1.75it/s]100%|██████████| 4/4 [00:02<00:00,  2.36it/s]100%|██████████| 4/4 [00:02<00:00,  1.85it/s]
+LR: 0.000171, Acc: 88.2353, Loss: 0.4706
+  0%|          | 0/4 [00:00<?, ?it/s] 25%|██▌       | 1/4 [00:00<00:02,  1.05it/s] 50%|█████     | 2/4 [00:01<00:01,  1.51it/s] 75%|███████▌  | 3/4 [00:01<00:00,  1.76it/s]100%|██████████| 4/4 [00:02<00:00,  2.34it/s]100%|██████████| 4/4 [00:02<00:00,  1.85it/s]
+LR: 0.000170, Acc: 95.0980, Loss: 0.2289
+  0%|          | 0/4 [00:00<?, ?it/s] 25%|██▌       | 1/4 [00:00<00:02,  1.08it/s] 50%|█████     | 2/4 [00:01<00:01,  1.54it/s] 75%|███████▌  | 3/4 [00:01<00:00,  1.79it/s]100%|██████████| 4/4 [00:02<00:00,  2.40it/s]100%|██████████| 4/4 [00:02<00:00,  1.88it/s]
+LR: 0.000168, Acc: 95.0980, Loss: 0.2890
+  0%|          | 0/4 [00:00<?, ?it/s] 25%|██▌       | 1/4 [00:00<00:02,  1.16it/s] 50%|█████     | 2/4 [00:01<00:01,  1.61it/s] 75%|███████▌  | 3/4 [00:01<00:00,  1.83it/s]100%|██████████| 4/4 [00:01<00:00,  2.46it/s]100%|██████████| 4/4 [00:02<00:00,  1.95it/s]
+LR: 0.000166, Acc: 91.1765, Loss: 0.3264
+  0%|          | 0/4 [00:00<?, ?it/s] 25%|██▌       | 1/4 [00:00<00:02,  1.20it/s] 50%|█████     | 2/4 [00:01<00:01,  1.63it/s] 75%|███████▌  | 3/4 [00:01<00:00,  1.85it/s]100%|██████████| 4/4 [00:01<00:00,  2.48it/s]100%|██████████| 4/4 [00:02<00:00,  1.95it/s]
+LR: 0.000164, Acc: 95.0980, Loss: 0.2331
+  0%|          | 0/4 [00:00<?, ?it/s] 25%|██▌       | 1/4 [00:00<00:02,  1.08it/s] 50%|█████     | 2/4 [00:01<00:01,  1.54it/s] 75%|███████▌  | 3/4 [00:01<00:00,  1.78it/s]100%|██████████| 4/4 [00:02<00:00,  2.40it/s]100%|██████████| 4/4 [00:02<00:00,  1.89it/s]
+LR: 0.000162, Acc: 96.0784, Loss: 0.2391
+  0%|          | 0/4 [00:00<?, ?it/s] 25%|██▌       | 1/4 [00:00<00:02,  1.18it/s] 50%|█████     | 2/4 [00:01<00:01,  1.62it/s] 75%|███████▌  | 3/4 [00:01<00:00,  1.83it/s]100%|██████████| 4/4 [00:01<00:00,  2.46it/s]100%|██████████| 4/4 [00:02<00:00,  1.95it/s]
+LR: 0.000160, Acc: 91.1765, Loss: 0.4170
+  0%|          | 0/4 [00:00<?, ?it/s] 25%|██▌       | 1/4 [00:01<00:03,  1.12s/it] 50%|█████     | 2/4 [00:01<00:01,  1.37it/s] 75%|███████▌  | 3/4 [00:02<00:00,  1.66it/s]100%|██████████| 4/4 [00:02<00:00,  2.23it/s]100%|██████████| 4/4 [00:02<00:00,  1.70it/s]
+LR: 0.000158, Acc: 93.1373, Loss: 0.3015
+  0%|          | 0/4 [00:00<?, ?it/s] 25%|██▌       | 1/4 [00:00<00:02,  1.06it/s] 50%|█████     | 2/4 [00:01<00:01,  1.52it/s] 75%|███████▌  | 3/4 [00:01<00:00,  1.77it/s]100%|██████████| 4/4 [00:02<00:00,  2.38it/s]100%|██████████| 4/4 [00:02<00:00,  1.86it/s]
+LR: 0.000156, Acc: 95.0980, Loss: 0.1828
+  0%|          | 0/4 [00:00<?, ?it/s] 25%|██▌       | 1/4 [00:00<00:02,  1.05it/s] 50%|█████     | 2/4 [00:01<00:01,  1.51it/s] 75%|███████▌  | 3/4 [00:01<00:00,  1.76it/s]100%|██████████| 4/4 [00:02<00:00,  2.38it/s]100%|██████████| 4/4 [00:02<00:00,  1.85it/s]
+LR: 0.000154, Acc: 93.1373, Loss: 0.3005
+  0%|          | 0/4 [00:00<?, ?it/s] 25%|██▌       | 1/4 [00:00<00:02,  1.11it/s] 50%|█████     | 2/4 [00:01<00:01,  1.56it/s] 75%|███████▌  | 3/4 [00:01<00:00,  1.78it/s]100%|██████████| 4/4 [00:02<00:00,  2.38it/s]100%|██████████| 4/4 [00:02<00:00,  1.87it/s]
+LR: 0.000152, Acc: 93.1373, Loss: 0.3035
+  0%|          | 0/4 [00:00<?, ?it/s] 25%|██▌       | 1/4 [00:00<00:02,  1.10it/s] 50%|█████     | 2/4 [00:01<00:01,  1.56it/s] 75%|███████▌  | 3/4 [00:01<00:00,  1.79it/s]100%|██████████| 4/4 [00:02<00:00,  2.37it/s]100%|██████████| 4/4 [00:02<00:00,  1.86it/s]
+LR: 0.000150, Acc: 96.0784, Loss: 0.1752
+  0%|          | 0/4 [00:00<?, ?it/s] 25%|██▌       | 1/4 [00:00<00:02,  1.01it/s] 50%|█████     | 2/4 [00:01<00:01,  1.48it/s] 75%|███████▌  | 3/4 [00:01<00:00,  1.73it/s]100%|██████████| 4/4 [00:02<00:00,  2.34it/s]100%|██████████| 4/4 [00:02<00:00,  1.85it/s]
+LR: 0.000147, Acc: 96.0784, Loss: 0.2088
+  0%|          | 0/4 [00:00<?, ?it/s] 25%|██▌       | 1/4 [00:00<00:02,  1.18it/s] 50%|█████     | 2/4 [00:01<00:01,  1.62it/s] 75%|███████▌  | 3/4 [00:01<00:00,  1.84it/s]100%|██████████| 4/4 [00:01<00:00,  2.43it/s]100%|██████████| 4/4 [00:02<00:00,  1.93it/s]
+LR: 0.000145, Acc: 92.1569, Loss: 0.3216
+  0%|          | 0/4 [00:00<?, ?it/s] 25%|██▌       | 1/4 [00:00<00:02,  1.08it/s] 50%|█████     | 2/4 [00:01<00:01,  1.54it/s] 75%|███████▌  | 3/4 [00:01<00:00,  1.77it/s]100%|██████████| 4/4 [00:02<00:00,  2.37it/s]100%|██████████| 4/4 [00:02<00:00,  1.85it/s]
+LR: 0.000143, Acc: 99.0196, Loss: 0.0843
+  0%|          | 0/4 [00:00<?, ?it/s] 25%|██▌       | 1/4 [00:00<00:02,  1.07it/s] 50%|█████     | 2/4 [00:01<00:01,  1.52it/s] 75%|███████▌  | 3/4 [00:01<00:00,  1.77it/s]100%|██████████| 4/4 [00:02<00:00,  2.40it/s]100%|██████████| 4/4 [00:02<00:00,  1.86it/s]
+LR: 0.000141, Acc: 94.1176, Loss: 0.2383
+  0%|          | 0/4 [00:00<?, ?it/s] 25%|██▌       | 1/4 [00:00<00:02,  1.05it/s] 50%|█████     | 2/4 [00:01<00:01,  1.50it/s] 75%|███████▌  | 3/4 [00:01<00:00,  1.74it/s]100%|██████████| 4/4 [00:02<00:00,  2.36it/s]100%|██████████| 4/4 [00:02<00:00,  1.86it/s]
+LR: 0.000138, Acc: 96.0784, Loss: 0.1704
+  0%|          | 0/4 [00:00<?, ?it/s] 25%|██▌       | 1/4 [00:00<00:02,  1.19it/s] 50%|█████     | 2/4 [00:01<00:01,  1.62it/s] 75%|███████▌  | 3/4 [00:01<00:00,  1.84it/s]100%|██████████| 4/4 [00:01<00:00,  2.46it/s]100%|██████████| 4/4 [00:02<00:00,  1.97it/s]
+LR: 0.000136, Acc: 96.0784, Loss: 0.1645
+  0%|          | 0/4 [00:00<?, ?it/s] 25%|██▌       | 1/4 [00:00<00:02,  1.02it/s] 50%|█████     | 2/4 [00:01<00:01,  1.48it/s] 75%|███████▌  | 3/4 [00:01<00:00,  1.74it/s]100%|██████████| 4/4 [00:02<00:00,  2.34it/s]100%|██████████| 4/4 [00:02<00:00,  1.82it/s]
+LR: 0.000134, Acc: 97.0588, Loss: 0.2355
+  0%|          | 0/4 [00:00<?, ?it/s] 25%|██▌       | 1/4 [00:00<00:02,  1.04it/s] 50%|█████     | 2/4 [00:01<00:01,  1.50it/s] 75%|███████▌  | 3/4 [00:01<00:00,  1.76it/s]100%|██████████| 4/4 [00:02<00:00,  2.37it/s]100%|██████████| 4/4 [00:02<00:00,  1.84it/s]
+LR: 0.000131, Acc: 96.0784, Loss: 0.1643
+  0%|          | 0/4 [00:00<?, ?it/s] 25%|██▌       | 1/4 [00:00<00:02,  1.18it/s] 50%|█████     | 2/4 [00:01<00:01,  1.62it/s] 75%|███████▌  | 3/4 [00:01<00:00,  1.84it/s]100%|██████████| 4/4 [00:01<00:00,  2.44it/s]100%|██████████| 4/4 [00:02<00:00,  1.94it/s]
+LR: 0.000129, Acc: 98.0392, Loss: 0.1109
+  0%|          | 0/4 [00:00<?, ?it/s] 25%|██▌       | 1/4 [00:00<00:02,  1.07it/s] 50%|█████     | 2/4 [00:01<00:01,  1.53it/s] 75%|███████▌  | 3/4 [00:01<00:00,  1.77it/s]100%|██████████| 4/4 [00:02<00:00,  2.39it/s]100%|██████████| 4/4 [00:02<00:00,  1.87it/s]
+LR: 0.000126, Acc: 96.0784, Loss: 0.1653
+  0%|          | 0/4 [00:00<?, ?it/s] 25%|██▌       | 1/4 [00:00<00:02,  1.01it/s] 50%|█████     | 2/4 [00:01<00:01,  1.47it/s] 75%|███████▌  | 3/4 [00:01<00:00,  1.73it/s]100%|██████████| 4/4 [00:02<00:00,  2.34it/s]100%|██████████| 4/4 [00:02<00:00,  1.81it/s]
+LR: 0.000124, Acc: 99.0196, Loss: 0.0754
+  0%|          | 0/4 [00:00<?, ?it/s] 25%|██▌       | 1/4 [00:00<00:02,  1.01it/s] 50%|█████     | 2/4 [00:01<00:01,  1.48it/s] 75%|███████▌  | 3/4 [00:01<00:00,  1.74it/s]100%|██████████| 4/4 [00:02<00:00,  2.36it/s]100%|██████████| 4/4 [00:02<00:00,  1.82it/s]
+LR: 0.000122, Acc: 96.0784, Loss: 0.1692
+  0%|          | 0/4 [00:00<?, ?it/s] 25%|██▌       | 1/4 [00:00<00:02,  1.08it/s] 50%|█████     | 2/4 [00:01<00:01,  1.53it/s] 75%|███████▌  | 3/4 [00:01<00:00,  1.78it/s]100%|██████████| 4/4 [00:02<00:00,  2.39it/s]100%|██████████| 4/4 [00:02<00:00,  1.87it/s]
+LR: 0.000119, Acc: 96.0784, Loss: 0.1595
+  0%|          | 0/4 [00:00<?, ?it/s] 25%|██▌       | 1/4 [00:00<00:02,  1.20it/s] 50%|█████     | 2/4 [00:01<00:01,  1.63it/s] 75%|███████▌  | 3/4 [00:01<00:00,  1.84it/s]100%|██████████| 4/4 [00:01<00:00,  2.46it/s]100%|██████████| 4/4 [00:02<00:00,  2.00it/s]
+LR: 0.000117, Acc: 95.0980, Loss: 0.1815
+  0%|          | 0/4 [00:00<?, ?it/s] 25%|██▌       | 1/4 [00:00<00:02,  1.19it/s] 50%|█████     | 2/4 [00:01<00:01,  1.62it/s] 75%|███████▌  | 3/4 [00:01<00:00,  1.84it/s]100%|██████████| 4/4 [00:01<00:00,  2.42it/s]100%|██████████| 4/4 [00:02<00:00,  1.96it/s]
+LR: 0.000114, Acc: 98.0392, Loss: 0.1108
+  0%|          | 0/4 [00:00<?, ?it/s] 25%|██▌       | 1/4 [00:00<00:02,  1.12it/s] 50%|█████     | 2/4 [00:01<00:01,  1.57it/s] 75%|███████▌  | 3/4 [00:01<00:00,  1.80it/s]100%|██████████| 4/4 [00:02<00:00,  2.42it/s]100%|██████████| 4/4 [00:02<00:00,  1.89it/s]
+LR: 0.000112, Acc: 96.0784, Loss: 0.2333
+  0%|          | 0/4 [00:00<?, ?it/s] 25%|██▌       | 1/4 [00:01<00:03,  1.05s/it] 50%|█████     | 2/4 [00:01<00:01,  1.43it/s] 75%|███████▌  | 3/4 [00:01<00:00,  1.70it/s]100%|██████████| 4/4 [00:02<00:00,  2.30it/s]100%|██████████| 4/4 [00:02<00:00,  1.76it/s]
+LR: 0.000109, Acc: 94.1176, Loss: 0.2713
+  0%|          | 0/4 [00:00<?, ?it/s] 25%|██▌       | 1/4 [00:00<00:02,  1.03it/s] 50%|█████     | 2/4 [00:01<00:01,  1.49it/s] 75%|███████▌  | 3/4 [00:01<00:00,  1.75it/s]100%|██████████| 4/4 [00:02<00:00,  2.37it/s]100%|██████████| 4/4 [00:02<00:00,  1.83it/s]
+LR: 0.000107, Acc: 98.0392, Loss: 0.1146
+  0%|          | 0/4 [00:00<?, ?it/s] 25%|██▌       | 1/4 [00:01<00:03,  1.00s/it] 50%|█████     | 2/4 [00:01<00:01,  1.46it/s] 75%|███████▌  | 3/4 [00:01<00:00,  1.72it/s]100%|██████████| 4/4 [00:02<00:00,  2.33it/s]100%|██████████| 4/4 [00:02<00:00,  1.80it/s]
+LR: 0.000104, Acc: 97.0588, Loss: 0.1517
+  0%|          | 0/4 [00:00<?, ?it/s] 25%|██▌       | 1/4 [00:00<00:02,  1.04it/s] 50%|█████     | 2/4 [00:01<00:01,  1.51it/s] 75%|███████▌  | 3/4 [00:01<00:00,  1.76it/s]100%|██████████| 4/4 [00:02<00:00,  2.39it/s]100%|██████████| 4/4 [00:02<00:00,  1.86it/s]
+LR: 0.000102, Acc: 95.0980, Loss: 0.2296
+  0%|          | 0/4 [00:00<?, ?it/s] 25%|██▌       | 1/4 [00:00<00:02,  1.17it/s] 50%|█████     | 2/4 [00:01<00:01,  1.61it/s] 75%|███████▌  | 3/4 [00:01<00:00,  1.83it/s]100%|██████████| 4/4 [00:01<00:00,  2.45it/s]100%|██████████| 4/4 [00:02<00:00,  1.93it/s]
+LR: 0.000099, Acc: 97.0588, Loss: 0.1485
+  0%|          | 0/4 [00:00<?, ?it/s] 25%|██▌       | 1/4 [00:00<00:02,  1.04it/s] 50%|█████     | 2/4 [00:01<00:01,  1.51it/s] 75%|███████▌  | 3/4 [00:01<00:00,  1.76it/s]100%|██████████| 4/4 [00:02<00:00,  2.37it/s]100%|██████████| 4/4 [00:02<00:00,  1.86it/s]
+LR: 0.000097, Acc: 97.0588, Loss: 0.1848
+  0%|          | 0/4 [00:00<?, ?it/s] 25%|██▌       | 1/4 [00:00<00:02,  1.12it/s] 50%|█████     | 2/4 [00:01<00:01,  1.57it/s] 75%|███████▌  | 3/4 [00:01<00:00,  1.80it/s]100%|██████████| 4/4 [00:02<00:00,  2.43it/s]100%|██████████| 4/4 [00:02<00:00,  1.85it/s]
+LR: 0.000094, Acc: 96.0784, Loss: 0.2002
+  0%|          | 0/4 [00:00<?, ?it/s] 25%|██▌       | 1/4 [00:00<00:02,  1.05it/s] 50%|█████     | 2/4 [00:01<00:01,  1.51it/s] 75%|███████▌  | 3/4 [00:01<00:00,  1.76it/s]100%|██████████| 4/4 [00:02<00:00,  2.38it/s]100%|██████████| 4/4 [00:02<00:00,  1.84it/s]
+LR: 0.000092, Acc: 98.0392, Loss: 0.0846
+  0%|          | 0/4 [00:00<?, ?it/s] 25%|██▌       | 1/4 [00:00<00:02,  1.06it/s] 50%|█████     | 2/4 [00:01<00:01,  1.51it/s] 75%|███████▌  | 3/4 [00:01<00:00,  1.76it/s]100%|██████████| 4/4 [00:02<00:00,  2.37it/s]100%|██████████| 4/4 [00:02<00:00,  1.85it/s]
+LR: 0.000089, Acc: 97.0588, Loss: 0.1739
+  0%|          | 0/4 [00:00<?, ?it/s] 25%|██▌       | 1/4 [00:00<00:02,  1.02it/s] 50%|█████     | 2/4 [00:01<00:01,  1.49it/s] 75%|███████▌  | 3/4 [00:01<00:00,  1.74it/s]100%|██████████| 4/4 [00:02<00:00,  2.32it/s]100%|██████████| 4/4 [00:02<00:00,  1.82it/s]
+LR: 0.000087, Acc: 96.0784, Loss: 0.1882
+  0%|          | 0/4 [00:00<?, ?it/s] 25%|██▌       | 1/4 [00:01<00:03,  1.03s/it] 50%|█████     | 2/4 [00:01<00:01,  1.44it/s] 75%|███████▌  | 3/4 [00:01<00:00,  1.71it/s]100%|██████████| 4/4 [00:02<00:00,  2.31it/s]100%|██████████| 4/4 [00:02<00:00,  1.78it/s]
+LR: 0.000084, Acc: 90.1961, Loss: 0.3436
+  0%|          | 0/4 [00:00<?, ?it/s] 25%|██▌       | 1/4 [00:00<00:02,  1.03it/s] 50%|█████     | 2/4 [00:01<00:01,  1.50it/s] 75%|███████▌  | 3/4 [00:01<00:00,  1.75it/s]100%|██████████| 4/4 [00:02<00:00,  2.37it/s]100%|██████████| 4/4 [00:02<00:00,  1.86it/s]
+LR: 0.000082, Acc: 98.0392, Loss: 0.1053
+  0%|          | 0/4 [00:00<?, ?it/s] 25%|██▌       | 1/4 [00:00<00:02,  1.07it/s] 50%|█████     | 2/4 [00:01<00:01,  1.53it/s] 75%|███████▌  | 3/4 [00:01<00:00,  1.78it/s]100%|██████████| 4/4 [00:02<00:00,  2.39it/s]100%|██████████| 4/4 [00:02<00:00,  1.87it/s]
+LR: 0.000079, Acc: 96.0784, Loss: 0.1571
+  0%|          | 0/4 [00:00<?, ?it/s] 25%|██▌       | 1/4 [00:00<00:02,  1.02it/s] 50%|█████     | 2/4 [00:01<00:01,  1.48it/s] 75%|███████▌  | 3/4 [00:01<00:00,  1.74it/s]100%|██████████| 4/4 [00:02<00:00,  2.35it/s]100%|██████████| 4/4 [00:02<00:00,  1.82it/s]
+LR: 0.000077, Acc: 100.0000, Loss: 0.0479
+  0%|          | 0/4 [00:00<?, ?it/s] 25%|██▌       | 1/4 [00:00<00:02,  1.08it/s] 50%|█████     | 2/4 [00:01<00:01,  1.54it/s] 75%|███████▌  | 3/4 [00:01<00:00,  1.78it/s]100%|██████████| 4/4 [00:02<00:00,  2.40it/s]100%|██████████| 4/4 [00:02<00:00,  1.83it/s]
+LR: 0.000075, Acc: 94.1176, Loss: 0.2730
+  0%|          | 0/4 [00:00<?, ?it/s] 25%|██▌       | 1/4 [00:01<00:03,  1.15s/it] 50%|█████     | 2/4 [00:01<00:01,  1.35it/s] 75%|███████▌  | 3/4 [00:02<00:00,  1.64it/s]100%|██████████| 4/4 [00:02<00:00,  2.24it/s]100%|██████████| 4/4 [00:02<00:00,  1.70it/s]
+LR: 0.000072, Acc: 96.0784, Loss: 0.2638
+  0%|          | 0/4 [00:00<?, ?it/s] 25%|██▌       | 1/4 [00:00<00:02,  1.19it/s] 50%|█████     | 2/4 [00:01<00:01,  1.62it/s] 75%|███████▌  | 3/4 [00:01<00:00,  1.83it/s]100%|██████████| 4/4 [00:01<00:00,  2.44it/s]100%|██████████| 4/4 [00:02<00:00,  1.89it/s]
+LR: 0.000070, Acc: 96.0784, Loss: 0.1336
+  0%|          | 0/4 [00:00<?, ?it/s] 25%|██▌       | 1/4 [00:01<00:03,  1.01s/it] 50%|█████     | 2/4 [00:01<00:01,  1.46it/s] 75%|███████▌  | 3/4 [00:01<00:00,  1.72it/s]100%|██████████| 4/4 [00:02<00:00,  2.33it/s]100%|██████████| 4/4 [00:02<00:00,  1.79it/s]
+LR: 0.000067, Acc: 96.0784, Loss: 0.1547
+  0%|          | 0/4 [00:00<?, ?it/s] 25%|██▌       | 1/4 [00:00<00:02,  1.05it/s] 50%|█████     | 2/4 [00:01<00:01,  1.51it/s] 75%|███████▌  | 3/4 [00:01<00:00,  1.76it/s]100%|██████████| 4/4 [00:02<00:00,  2.37it/s]100%|██████████| 4/4 [00:02<00:00,  1.88it/s]
+LR: 0.000065, Acc: 97.0588, Loss: 0.1557
+  0%|          | 0/4 [00:00<?, ?it/s] 25%|██▌       | 1/4 [00:00<00:02,  1.13it/s] 50%|█████     | 2/4 [00:01<00:01,  1.58it/s] 75%|███████▌  | 3/4 [00:01<00:00,  1.81it/s]100%|██████████| 4/4 [00:02<00:00,  2.41it/s]100%|██████████| 4/4 [00:02<00:00,  1.90it/s]
+LR: 0.000063, Acc: 95.0980, Loss: 0.1553
+  0%|          | 0/4 [00:00<?, ?it/s] 25%|██▌       | 1/4 [00:00<00:02,  1.02it/s] 50%|█████     | 2/4 [00:01<00:01,  1.47it/s] 75%|███████▌  | 3/4 [00:01<00:00,  1.72it/s]100%|██████████| 4/4 [00:02<00:00,  2.33it/s]100%|██████████| 4/4 [00:02<00:00,  1.80it/s]
+LR: 0.000060, Acc: 93.1373, Loss: 0.1938
+  0%|          | 0/4 [00:00<?, ?it/s] 25%|██▌       | 1/4 [00:01<00:03,  1.02s/it] 50%|█████     | 2/4 [00:01<00:01,  1.45it/s] 75%|███████▌  | 3/4 [00:01<00:00,  1.71it/s]100%|██████████| 4/4 [00:02<00:00,  2.32it/s]100%|██████████| 4/4 [00:02<00:00,  1.76it/s]
+LR: 0.000058, Acc: 95.0980, Loss: 0.1906
+  0%|          | 0/4 [00:00<?, ?it/s] 25%|██▌       | 1/4 [00:00<00:02,  1.09it/s] 50%|█████     | 2/4 [00:01<00:01,  1.54it/s] 75%|███████▌  | 3/4 [00:01<00:00,  1.78it/s]100%|██████████| 4/4 [00:02<00:00,  2.40it/s]100%|██████████| 4/4 [00:02<00:00,  1.82it/s]
+LR: 0.000056, Acc: 97.0588, Loss: 0.1858
+  0%|          | 0/4 [00:00<?, ?it/s] 25%|██▌       | 1/4 [00:00<00:02,  1.07it/s] 50%|█████     | 2/4 [00:01<00:01,  1.53it/s] 75%|███████▌  | 3/4 [00:01<00:00,  1.78it/s]100%|██████████| 4/4 [00:02<00:00,  2.40it/s]100%|██████████| 4/4 [00:02<00:00,  1.89it/s]
+LR: 0.000054, Acc: 98.0392, Loss: 0.1266
+  0%|          | 0/4 [00:00<?, ?it/s] 25%|██▌       | 1/4 [00:00<00:02,  1.06it/s] 50%|█████     | 2/4 [00:01<00:01,  1.52it/s] 75%|███████▌  | 3/4 [00:01<00:00,  1.77it/s]100%|██████████| 4/4 [00:02<00:00,  2.38it/s]100%|██████████| 4/4 [00:02<00:00,  1.89it/s]
+LR: 0.000051, Acc: 97.0588, Loss: 0.0765
+  0%|          | 0/4 [00:00<?, ?it/s] 25%|██▌       | 1/4 [00:00<00:02,  1.17it/s] 50%|█████     | 2/4 [00:01<00:01,  1.61it/s] 75%|███████▌  | 3/4 [00:01<00:00,  1.83it/s]100%|██████████| 4/4 [00:01<00:00,  2.46it/s]100%|██████████| 4/4 [00:02<00:00,  1.98it/s]
+LR: 0.000049, Acc: 96.0784, Loss: 0.1206
+  0%|          | 0/4 [00:00<?, ?it/s] 25%|██▌       | 1/4 [00:00<00:02,  1.16it/s] 50%|█████     | 2/4 [00:01<00:01,  1.61it/s] 75%|███████▌  | 3/4 [00:01<00:00,  1.83it/s]100%|██████████| 4/4 [00:01<00:00,  2.46it/s]100%|██████████| 4/4 [00:02<00:00,  1.89it/s]
+LR: 0.000047, Acc: 98.0392, Loss: 0.0720
+  0%|          | 0/4 [00:00<?, ?it/s] 25%|██▌       | 1/4 [00:00<00:02,  1.07it/s] 50%|█████     | 2/4 [00:01<00:01,  1.53it/s] 75%|███████▌  | 3/4 [00:01<00:00,  1.77it/s]100%|██████████| 4/4 [00:02<00:00,  2.39it/s]100%|██████████| 4/4 [00:02<00:00,  1.87it/s]
+LR: 0.000045, Acc: 94.1176, Loss: 0.2574
+  0%|          | 0/4 [00:00<?, ?it/s] 25%|██▌       | 1/4 [00:00<00:02,  1.08it/s] 50%|█████     | 2/4 [00:01<00:01,  1.54it/s] 75%|███████▌  | 3/4 [00:01<00:00,  1.78it/s]100%|██████████| 4/4 [00:02<00:00,  2.37it/s]100%|██████████| 4/4 [00:02<00:00,  1.86it/s]
+LR: 0.000043, Acc: 96.0784, Loss: 0.1686
+  0%|          | 0/4 [00:00<?, ?it/s] 25%|██▌       | 1/4 [00:00<00:02,  1.06it/s] 50%|█████     | 2/4 [00:01<00:01,  1.52it/s] 75%|███████▌  | 3/4 [00:01<00:00,  1.76it/s]100%|██████████| 4/4 [00:02<00:00,  2.38it/s]100%|██████████| 4/4 [00:02<00:00,  1.87it/s]
+LR: 0.000041, Acc: 97.0588, Loss: 0.0904
+  0%|          | 0/4 [00:00<?, ?it/s] 25%|██▌       | 1/4 [00:00<00:02,  1.05it/s] 50%|█████     | 2/4 [00:01<00:01,  1.52it/s] 75%|███████▌  | 3/4 [00:01<00:00,  1.77it/s]100%|██████████| 4/4 [00:02<00:00,  2.35it/s]100%|██████████| 4/4 [00:02<00:00,  1.83it/s]
+LR: 0.000039, Acc: 97.0588, Loss: 0.0910
+  0%|          | 0/4 [00:00<?, ?it/s] 25%|██▌       | 1/4 [00:00<00:02,  1.05it/s] 50%|█████     | 2/4 [00:01<00:01,  1.50it/s] 75%|███████▌  | 3/4 [00:01<00:00,  1.75it/s]100%|██████████| 4/4 [00:02<00:00,  2.37it/s]100%|██████████| 4/4 [00:02<00:00,  1.85it/s]
+LR: 0.000037, Acc: 99.0196, Loss: 0.0679
+  0%|          | 0/4 [00:00<?, ?it/s] 25%|██▌       | 1/4 [00:00<00:02,  1.19it/s] 50%|█████     | 2/4 [00:01<00:01,  1.63it/s] 75%|███████▌  | 3/4 [00:01<00:00,  1.84it/s]100%|██████████| 4/4 [00:01<00:00,  2.48it/s]100%|██████████| 4/4 [00:02<00:00,  1.98it/s]
+LR: 0.000035, Acc: 94.1176, Loss: 0.2558
+  0%|          | 0/4 [00:00<?, ?it/s] 25%|██▌       | 1/4 [00:00<00:02,  1.06it/s] 50%|█████     | 2/4 [00:01<00:01,  1.52it/s] 75%|███████▌  | 3/4 [00:01<00:00,  1.76it/s]100%|██████████| 4/4 [00:02<00:00,  2.38it/s]100%|██████████| 4/4 [00:02<00:00,  1.87it/s]
+LR: 0.000033, Acc: 94.1176, Loss: 0.2592
+  0%|          | 0/4 [00:00<?, ?it/s] 25%|██▌       | 1/4 [00:00<00:02,  1.04it/s] 50%|█████     | 2/4 [00:01<00:01,  1.51it/s] 75%|███████▌  | 3/4 [00:01<00:00,  1.76it/s]100%|██████████| 4/4 [00:02<00:00,  2.37it/s]100%|██████████| 4/4 [00:02<00:00,  1.83it/s]
+LR: 0.000031, Acc: 96.0784, Loss: 0.1192
+  0%|          | 0/4 [00:00<?, ?it/s] 25%|██▌       | 1/4 [00:00<00:02,  1.08it/s] 50%|█████     | 2/4 [00:01<00:01,  1.54it/s] 75%|███████▌  | 3/4 [00:01<00:00,  1.78it/s]100%|██████████| 4/4 [00:02<00:00,  2.40it/s]100%|██████████| 4/4 [00:02<00:00,  1.87it/s]
+LR: 0.000030, Acc: 98.0392, Loss: 0.1071
+  0%|          | 0/4 [00:00<?, ?it/s] 25%|██▌       | 1/4 [00:00<00:02,  1.01it/s] 50%|█████     | 2/4 [00:01<00:01,  1.48it/s] 75%|███████▌  | 3/4 [00:01<00:00,  1.74it/s]100%|██████████| 4/4 [00:02<00:00,  2.35it/s]100%|██████████| 4/4 [00:02<00:00,  1.85it/s]
+LR: 0.000028, Acc: 99.0196, Loss: 0.0854
+  0%|          | 0/4 [00:00<?, ?it/s] 25%|██▌       | 1/4 [00:00<00:02,  1.20it/s] 50%|█████     | 2/4 [00:01<00:01,  1.63it/s] 75%|███████▌  | 3/4 [00:01<00:00,  1.85it/s]100%|██████████| 4/4 [00:01<00:00,  2.48it/s]100%|██████████| 4/4 [00:02<00:00,  1.99it/s]
+LR: 0.000026, Acc: 98.0392, Loss: 0.1239
+  0%|          | 0/4 [00:00<?, ?it/s] 25%|██▌       | 1/4 [00:00<00:02,  1.13it/s] 50%|█████     | 2/4 [00:01<00:01,  1.58it/s] 75%|███████▌  | 3/4 [00:01<00:00,  1.80it/s]100%|██████████| 4/4 [00:01<00:00,  2.43it/s]100%|██████████| 4/4 [00:02<00:00,  1.91it/s]
+LR: 0.000025, Acc: 97.0588, Loss: 0.1209
+  0%|          | 0/4 [00:00<?, ?it/s] 25%|██▌       | 1/4 [00:00<00:02,  1.05it/s] 50%|█████     | 2/4 [00:01<00:01,  1.51it/s] 75%|███████▌  | 3/4 [00:01<00:00,  1.75it/s]100%|██████████| 4/4 [00:02<00:00,  2.37it/s]100%|██████████| 4/4 [00:02<00:00,  1.88it/s]
+LR: 0.000023, Acc: 94.1176, Loss: 0.3300
+  0%|          | 0/4 [00:00<?, ?it/s] 25%|██▌       | 1/4 [00:00<00:02,  1.19it/s] 50%|█████     | 2/4 [00:01<00:01,  1.63it/s] 75%|███████▌  | 3/4 [00:01<00:00,  1.84it/s]100%|██████████| 4/4 [00:01<00:00,  2.47it/s]100%|██████████| 4/4 [00:02<00:00,  1.95it/s]
+LR: 0.000021, Acc: 94.1176, Loss: 0.1782
+  0%|          | 0/4 [00:00<?, ?it/s] 25%|██▌       | 1/4 [00:00<00:02,  1.06it/s] 50%|█████     | 2/4 [00:01<00:01,  1.52it/s] 75%|███████▌  | 3/4 [00:01<00:00,  1.77it/s]100%|██████████| 4/4 [00:02<00:00,  2.37it/s]100%|██████████| 4/4 [00:02<00:00,  1.88it/s]
+LR: 0.000020, Acc: 96.0784, Loss: 0.3108
+  0%|          | 0/4 [00:00<?, ?it/s] 25%|██▌       | 1/4 [00:00<00:02,  1.15it/s] 50%|█████     | 2/4 [00:01<00:01,  1.60it/s] 75%|███████▌  | 3/4 [00:01<00:00,  1.82it/s]100%|██████████| 4/4 [00:01<00:00,  2.45it/s]100%|██████████| 4/4 [00:02<00:00,  1.96it/s]
+LR: 0.000019, Acc: 98.0392, Loss: 0.1140
+  0%|          | 0/4 [00:00<?, ?it/s] 25%|██▌       | 1/4 [00:00<00:02,  1.17it/s] 50%|█████     | 2/4 [00:01<00:01,  1.61it/s] 75%|███████▌  | 3/4 [00:01<00:00,  1.84it/s]100%|██████████| 4/4 [00:01<00:00,  2.47it/s]100%|██████████| 4/4 [00:02<00:00,  1.96it/s]
+LR: 0.000017, Acc: 96.0784, Loss: 0.1437
+  0%|          | 0/4 [00:00<?, ?it/s] 25%|██▌       | 1/4 [00:00<00:02,  1.14it/s] 50%|█████     | 2/4 [00:01<00:01,  1.59it/s] 75%|███████▌  | 3/4 [00:01<00:00,  1.82it/s]100%|██████████| 4/4 [00:01<00:00,  2.45it/s]100%|██████████| 4/4 [00:02<00:00,  1.93it/s]
+LR: 0.000016, Acc: 97.0588, Loss: 0.2070
+  0%|          | 0/4 [00:00<?, ?it/s] 25%|██▌       | 1/4 [00:00<00:02,  1.11it/s] 50%|█████     | 2/4 [00:01<00:01,  1.57it/s] 75%|███████▌  | 3/4 [00:01<00:00,  1.80it/s]100%|██████████| 4/4 [00:02<00:00,  2.43it/s]100%|██████████| 4/4 [00:02<00:00,  1.92it/s]
+LR: 0.000015, Acc: 97.0588, Loss: 0.1269
+  0%|          | 0/4 [00:00<?, ?it/s] 25%|██▌       | 1/4 [00:00<00:02,  1.12it/s] 50%|█████     | 2/4 [00:01<00:01,  1.57it/s] 75%|███████▌  | 3/4 [00:01<00:00,  1.81it/s]100%|██████████| 4/4 [00:01<00:00,  2.43it/s]100%|██████████| 4/4 [00:02<00:00,  1.91it/s]
+LR: 0.000013, Acc: 95.0980, Loss: 0.1786
+  0%|          | 0/4 [00:00<?, ?it/s] 25%|██▌       | 1/4 [00:00<00:02,  1.05it/s] 50%|█████     | 2/4 [00:01<00:01,  1.51it/s] 75%|███████▌  | 3/4 [00:01<00:00,  1.75it/s]100%|██████████| 4/4 [00:02<00:00,  2.36it/s]100%|██████████| 4/4 [00:02<00:00,  1.83it/s]
+LR: 0.000012, Acc: 97.0588, Loss: 0.1479
+  0%|          | 0/4 [00:00<?, ?it/s] 25%|██▌       | 1/4 [00:00<00:02,  1.14it/s] 50%|█████     | 2/4 [00:01<00:01,  1.59it/s] 75%|███████▌  | 3/4 [00:01<00:00,  1.82it/s]100%|██████████| 4/4 [00:01<00:00,  2.45it/s]100%|██████████| 4/4 [00:02<00:00,  1.93it/s]
+LR: 0.000011, Acc: 98.0392, Loss: 0.1007
+  0%|          | 0/4 [00:00<?, ?it/s] 25%|██▌       | 1/4 [00:00<00:02,  1.08it/s] 50%|█████     | 2/4 [00:01<00:01,  1.54it/s] 75%|███████▌  | 3/4 [00:01<00:00,  1.78it/s]100%|██████████| 4/4 [00:02<00:00,  2.40it/s]100%|██████████| 4/4 [00:02<00:00,  1.88it/s]
+LR: 0.000010, Acc: 99.0196, Loss: 0.0592
+  0%|          | 0/4 [00:00<?, ?it/s] 25%|██▌       | 1/4 [00:00<00:02,  1.02it/s] 50%|█████     | 2/4 [00:01<00:01,  1.49it/s] 75%|███████▌  | 3/4 [00:01<00:00,  1.75it/s]100%|██████████| 4/4 [00:02<00:00,  2.37it/s]100%|██████████| 4/4 [00:02<00:00,  1.86it/s]
+LR: 0.000009, Acc: 97.0588, Loss: 0.1293
+  0%|          | 0/4 [00:00<?, ?it/s] 25%|██▌       | 1/4 [00:00<00:02,  1.18it/s] 50%|█████     | 2/4 [00:01<00:01,  1.62it/s] 75%|███████▌  | 3/4 [00:01<00:00,  1.84it/s]100%|██████████| 4/4 [00:01<00:00,  2.46it/s]100%|██████████| 4/4 [00:02<00:00,  1.89it/s]
+LR: 0.000008, Acc: 97.0588, Loss: 0.0944
+  0%|          | 0/4 [00:00<?, ?it/s] 25%|██▌       | 1/4 [00:00<00:02,  1.04it/s] 50%|█████     | 2/4 [00:01<00:01,  1.50it/s] 75%|███████▌  | 3/4 [00:01<00:00,  1.75it/s]100%|██████████| 4/4 [00:02<00:00,  2.36it/s]100%|██████████| 4/4 [00:02<00:00,  1.86it/s]
+LR: 0.000007, Acc: 97.0588, Loss: 0.1638
+  0%|          | 0/4 [00:00<?, ?it/s] 25%|██▌       | 1/4 [00:00<00:02,  1.18it/s] 50%|█████     | 2/4 [00:01<00:01,  1.62it/s] 75%|███████▌  | 3/4 [00:01<00:00,  1.84it/s]100%|██████████| 4/4 [00:01<00:00,  2.46it/s]100%|██████████| 4/4 [00:02<00:00,  1.96it/s]
+LR: 0.000006, Acc: 97.0588, Loss: 0.0913
+  0%|          | 0/4 [00:00<?, ?it/s] 25%|██▌       | 1/4 [00:00<00:02,  1.15it/s] 50%|█████     | 2/4 [00:01<00:01,  1.60it/s] 75%|███████▌  | 3/4 [00:01<00:00,  1.83it/s]100%|██████████| 4/4 [00:01<00:00,  2.46it/s]100%|██████████| 4/4 [00:02<00:00,  1.93it/s]
+LR: 0.000005, Acc: 97.0588, Loss: 0.1059
+  0%|          | 0/4 [00:00<?, ?it/s] 25%|██▌       | 1/4 [00:00<00:02,  1.13it/s] 50%|█████     | 2/4 [00:01<00:01,  1.58it/s] 75%|███████▌  | 3/4 [00:01<00:00,  1.81it/s]100%|██████████| 4/4 [00:01<00:00,  2.43it/s]100%|██████████| 4/4 [00:02<00:00,  1.91it/s]
+LR: 0.000005, Acc: 96.0784, Loss: 0.1858
+  0%|          | 0/4 [00:00<?, ?it/s] 25%|██▌       | 1/4 [00:00<00:02,  1.01it/s] 50%|█████     | 2/4 [00:01<00:01,  1.48it/s] 75%|███████▌  | 3/4 [00:01<00:00,  1.74it/s]100%|██████████| 4/4 [00:02<00:00,  2.36it/s]100%|██████████| 4/4 [00:02<00:00,  1.82it/s]
+LR: 0.000004, Acc: 100.0000, Loss: 0.0460
+  0%|          | 0/4 [00:00<?, ?it/s] 25%|██▌       | 1/4 [00:00<00:02,  1.07it/s] 50%|█████     | 2/4 [00:01<00:01,  1.53it/s] 75%|███████▌  | 3/4 [00:01<00:00,  1.77it/s]100%|██████████| 4/4 [00:02<00:00,  2.39it/s]100%|██████████| 4/4 [00:02<00:00,  1.86it/s]
+LR: 0.000004, Acc: 99.0196, Loss: 0.1229
+  0%|          | 0/4 [00:00<?, ?it/s] 25%|██▌       | 1/4 [00:00<00:02,  1.02it/s] 50%|█████     | 2/4 [00:01<00:01,  1.48it/s] 75%|███████▌  | 3/4 [00:01<00:00,  1.74it/s]100%|██████████| 4/4 [00:02<00:00,  2.36it/s]100%|██████████| 4/4 [00:02<00:00,  1.81it/s]
+LR: 0.000003, Acc: 99.0196, Loss: 0.0497
+  0%|          | 0/4 [00:00<?, ?it/s] 25%|██▌       | 1/4 [00:00<00:02,  1.10it/s] 50%|█████     | 2/4 [00:01<00:01,  1.56it/s] 75%|███████▌  | 3/4 [00:01<00:00,  1.79it/s]100%|██████████| 4/4 [00:02<00:00,  2.41it/s]100%|██████████| 4/4 [00:02<00:00,  1.89it/s]
+LR: 0.000003, Acc: 97.0588, Loss: 0.1258
+  0%|          | 0/4 [00:00<?, ?it/s] 25%|██▌       | 1/4 [00:00<00:02,  1.03it/s] 50%|█████     | 2/4 [00:01<00:01,  1.50it/s] 75%|███████▌  | 3/4 [00:01<00:00,  1.75it/s]100%|██████████| 4/4 [00:02<00:00,  2.37it/s]100%|██████████| 4/4 [00:02<00:00,  1.84it/s]
+LR: 0.000002, Acc: 99.0196, Loss: 0.0625
+  0%|          | 0/4 [00:00<?, ?it/s] 25%|██▌       | 1/4 [00:00<00:02,  1.09it/s] 50%|█████     | 2/4 [00:01<00:01,  1.55it/s] 75%|███████▌  | 3/4 [00:01<00:00,  1.79it/s]100%|██████████| 4/4 [00:02<00:00,  2.42it/s]100%|██████████| 4/4 [00:02<00:00,  1.89it/s]
+LR: 0.000002, Acc: 97.0588, Loss: 0.1315
+  0%|          | 0/4 [00:00<?, ?it/s] 25%|██▌       | 1/4 [00:00<00:02,  1.06it/s] 50%|█████     | 2/4 [00:01<00:01,  1.53it/s] 75%|███████▌  | 3/4 [00:01<00:00,  1.77it/s]100%|██████████| 4/4 [00:02<00:00,  2.38it/s]100%|██████████| 4/4 [00:02<00:00,  1.84it/s]
+LR: 0.000002, Acc: 98.0392, Loss: 0.0744
+  0%|          | 0/4 [00:00<?, ?it/s] 25%|██▌       | 1/4 [00:00<00:02,  1.04it/s] 50%|█████     | 2/4 [00:01<00:01,  1.51it/s] 75%|███████▌  | 3/4 [00:01<00:00,  1.76it/s]100%|██████████| 4/4 [00:02<00:00,  2.38it/s]100%|██████████| 4/4 [00:02<00:00,  1.86it/s]
+LR: 0.000001, Acc: 96.0784, Loss: 0.1722
+  0%|          | 0/4 [00:00<?, ?it/s] 25%|██▌       | 1/4 [00:00<00:02,  1.10it/s] 50%|█████     | 2/4 [00:01<00:01,  1.55it/s] 75%|███████▌  | 3/4 [00:01<00:00,  1.79it/s]100%|██████████| 4/4 [00:02<00:00,  2.40it/s]100%|██████████| 4/4 [00:02<00:00,  1.88it/s]
+LR: 0.000001, Acc: 96.0784, Loss: 0.1500
+  0%|          | 0/4 [00:00<?, ?it/s] 25%|██▌       | 1/4 [00:00<00:02,  1.05it/s] 50%|█████     | 2/4 [00:01<00:01,  1.51it/s] 75%|███████▌  | 3/4 [00:01<00:00,  1.76it/s]100%|██████████| 4/4 [00:02<00:00,  2.39it/s]100%|██████████| 4/4 [00:02<00:00,  1.81it/s]
+LR: 0.000001, Acc: 99.0196, Loss: 0.0565
+  0%|          | 0/4 [00:00<?, ?it/s] 25%|██▌       | 1/4 [00:00<00:02,  1.13it/s] 50%|█████     | 2/4 [00:01<00:01,  1.58it/s] 75%|███████▌  | 3/4 [00:01<00:00,  1.81it/s] 75%|███████▌  | 3/4 [00:02<00:00,  1.44it/s]
+**** Final test accuracy: 90.58. ****
+
