@@ -1,0 +1,16 @@
+dataset,backbone,shots,seed,rank,params,encoder,position,dropout,accuracy,status,log_file
+stanford_cars,ViT-B/16,1,1,2,q_k_v,both,all,0.25,69.62,OK,logs/logs_stanford_cars_seed1_shot1.txt
+stanford_cars,ViT-B/16,2,1,2,q_k_v,both,all,0.25,70.92,OK,logs/logs_stanford_cars_seed1_shot2.txt
+stanford_cars,ViT-B/16,4,1,2,q_k_v,both,all,0.25,72.71,OK,logs/logs_stanford_cars_seed1_shot4.txt
+stanford_cars,ViT-B/16,8,1,2,q_k_v,both,all,0.25,78.20,OK,logs/logs_stanford_cars_seed1_shot8.txt
+stanford_cars,ViT-B/16,1,2,2,q_k_v,both,all,0.25,70.51,OK,logs/logs_stanford_cars_seed2_shot1.txt
+stanford_cars,ViT-B/16,2,2,2,q_k_v,both,all,0.25,71.87,OK,logs/logs_stanford_cars_seed2_shot2.txt
+stanford_cars,ViT-B/16,4,2,2,q_k_v,both,all,0.25,72.90,OK,logs/logs_stanford_cars_seed2_shot4.txt
+stanford_cars,ViT-B/16,8,2,2,q_k_v,both,all,0.25,78.39,OK,logs/logs_stanford_cars_seed2_shot8.txt
+stanford_cars,ViT-B/16,1,3,2,q_k_v,both,all,0.25,69.67,OK,logs/logs_stanford_cars_seed3_shot1.txt
+stanford_cars,ViT-B/16,2,3,2,q_k_v,both,all,0.25,70.46,OK,logs/logs_stanford_cars_seed3_shot2.txt
+stanford_cars,ViT-B/16,4,3,2,q_k_v,both,all,0.25,72.88,OK,logs/logs_stanford_cars_seed3_shot4.txt
+stanford_cars,ViT-B/16,8,3,2,q_k_v,both,all,0.25,78.71,OK,logs/logs_stanford_cars_seed3_shot8.txt
+stanford_cars,ViT-B/32,1,1,2,q_k_v,both,all,0.25,63.11,OK,logs/logs_stanford_cars_vitb32_seed1_shot1.txt
+stanford_cars,ViT-B/32,1,2,2,q_k_v,both,all,0.25,64.33,OK,logs/logs_stanford_cars_vitb32_seed2_shot1.txt
+stanford_cars,ViT-B/32,1,3,2,q_k_v,both,all,0.25,63.14,OK,logs/logs_stanford_cars_vitb32_seed3_shot1.txt
