@@ -1,10 +1,33 @@
 import torch
 import torch.nn.functional as F
 
+from contextlib import contextmanager
+
 from utils import *
 
 from loralib.utils import mark_only_lora_as_trainable, apply_lora, get_lora_parameters, lora_state_dict, save_lora, load_lora
 from loralib import layers as lora_layers
+from loralib.layers import LoRALayer
+
+
+@contextmanager
+def lora_disabled(model):
+    """Temporarily skip every LoRA branch so the model behaves as frozen zero-shot CLIP.
+
+    With dropout_rate > 0 the LoRA contribution is applied functionally (no weights are
+    baked into the layer), so flipping `merged` is fully reversible: we save each layer's
+    flag, force `merged=True` (forward skips the LoRA term), and restore on exit.
+    """
+    layers = [m for m in model.modules() if isinstance(m, LoRALayer) and m.r > 0]
+    saved = [m.merged for m in layers]
+    for m in layers:
+        m.merged = True
+    try:
+        yield
+    finally:
+        for m, s in zip(layers, saved):
+            m.merged = s
+
 
 def evaluate_lora(args, clip_model, loader, dataset):
     clip_model.eval()
@@ -87,7 +110,8 @@ def run_lora(args, clip_model, logit_scale, dataset, train_loader, val_loader, t
         acc_train = 0
         tot_samples = 0
         loss_epoch = 0.
-        if args.encoder == 'vision': 
+        kl_epoch = 0.
+        if args.encoder == 'vision':
             text_features = textual_features.t().half()
         for i, (images, target) in enumerate(tqdm(train_loader)):
             
@@ -110,7 +134,24 @@ def run_lora(args, clip_model, logit_scale, dataset, train_loader, val_loader, t
             image_features = image_features/image_features.norm(dim=-1, keepdim=True)
             
             cosine_similarity = logit_scale * image_features @ text_features.t()
-            loss = F.cross_entropy(cosine_similarity, target)
+            ce_loss = F.cross_entropy(cosine_similarity, target)
+            loss = ce_loss
+
+            # Knowledge-Preserving KL: distill frozen zero-shot CLIP (teacher) into the
+            # LoRA-adapted predictions (student). loss += kl_weight * T^2 * KL(teacher || student).
+            if args.kl_weight > 0:
+                T = args.kl_temp
+                with torch.no_grad(), lora_disabled(clip_model):
+                    with torch.amp.autocast(device_type="cuda", dtype=torch.float16):
+                        zs_image_features = clip_model.encode_image(images)
+                    zs_image_features = zs_image_features / zs_image_features.norm(dim=-1, keepdim=True)
+                    zs_logits = logit_scale * zs_image_features @ textual_features  # frozen text classifier
+                    teacher_probs = (zs_logits.float() / T).softmax(dim=-1)
+                student_log_probs = (cosine_similarity.float() / T).log_softmax(dim=-1)
+                kl_loss = F.kl_div(student_log_probs, teacher_probs, reduction='batchmean') * (T * T)
+                loss = ce_loss + args.kl_weight * kl_loss
+                kl_epoch += kl_loss.item() * target.shape[0]
+
             acc_train += cls_acc(cosine_similarity, target) * target.shape[0]
             loss_epoch += loss.item() * target.shape[0]
             tot_samples += target.shape[0]
@@ -130,7 +171,11 @@ def run_lora(args, clip_model, logit_scale, dataset, train_loader, val_loader, t
             acc_train /= tot_samples
             loss_epoch /= tot_samples
             current_lr = scheduler.get_last_lr()[0]
-            print('LR: {:.6f}, Acc: {:.4f}, Loss: {:.4f}'.format(current_lr, acc_train, loss_epoch))
+            if args.kl_weight > 0:
+                kl_epoch /= tot_samples
+                print('LR: {:.6f}, Acc: {:.4f}, Loss: {:.4f}, KL: {:.4f}'.format(current_lr, acc_train, loss_epoch, kl_epoch))
+            else:
+                print('LR: {:.6f}, Acc: {:.4f}, Loss: {:.4f}'.format(current_lr, acc_train, loss_epoch))
 
         
         # Eval

@@ -35,7 +35,13 @@ def get_arguments():
     parser.add_argument('--r', default=2, type=int, help='the rank of the low-rank matrices')
     parser.add_argument('--alpha', default=1, type=int, help='scaling (see LoRA paper)')
     parser.add_argument('--dropout_rate', default=0.25, type=float, help='dropout rate applied before the LoRA module')
-    
+
+    # --- KL-distillation extension (Knowledge-Preserving CLIP-LoRA) ---
+    # Adds lambda * T^2 * KL(teacher || student) between frozen zero-shot CLIP (teacher)
+    # and the LoRA-adapted predictions (student). kl_weight=0 disables it (default = paper baseline).
+    parser.add_argument('--kl_weight', default=0.0, type=float, help='weight of the KL-to-zero-shot regularizer (0 = off, reproduces the CE-only baseline)')
+    parser.add_argument('--kl_temp', default=4.0, type=float, help='softmax temperature for the KL term (used only when kl_weight > 0)')
+
     parser.add_argument('--save_path', default=None, help='path to save the lora modules after training, not saved if None')
     parser.add_argument('--filename', default='lora_weights', help='file name to save the lora weights (.pt extension will be added)')
     
