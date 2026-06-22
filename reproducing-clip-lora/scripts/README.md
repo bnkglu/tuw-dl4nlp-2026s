@@ -19,6 +19,7 @@ see [`docs/reproduction_details.md`](../../docs/reproduction_details.md).
 | `run_table_4.sh` | Phase 1.B — full few-shot grid on **ViT-B/32** (Table 4). |
 | `run_table_5.sh` | Phase 1.C — full few-shot grid on **ViT-L/14** (Table 5). |
 | `run_fig3.sh` | Phase 2 — Figure 3 ablations (rank × matrices × encoder + placement) for one dataset. |
+| `run_kl_ablation.sh` | Extension — Knowledge-Preserving CLIP-LoRA: KL-to-zero-shot distillation sweep. |
 | `aggregate_results.py` | Collapse per-run results into seed-averaged mean ± std for the report. |
 
 ## Typical workflow
@@ -47,6 +48,10 @@ nohup bash scripts/run_fig3.sh stanford_cars datasets > logs/fig3_cars.log 2>&1 
 
 # 4. summarize for the report
 python scripts/aggregate_results.py
+
+# 5. (extension) KL-distillation ablation — own CSV, reuses Table 3 as the kl_weight=0 baseline
+nohup bash scripts/run_kl_ablation.sh datasets > logs/kl_ablation.log 2>&1 &
+python scripts/aggregate_results.py --csv results/clip_lora_kl.csv --out results/clip_lora_kl_summary.csv
 ```
 
 ## Script details
@@ -102,6 +107,22 @@ bash scripts/run_fig3.sh <dataset> [DATA_DIR]
   `results/clip_lora_fig3.csv` (kept separate from the table runs so Figure 3 can run
   concurrently on a second server without clashing on one shared file).
 
+### `run_kl_ablation.sh`
+```bash
+bash scripts/run_kl_ablation.sh [DATA_DIR] [LOG_DIR]   # ViT-B/16, LOG_DIR=results/kl
+```
+- **Extension, not part of the paper reproduction.** Adds a knowledge-preserving KL term that
+  distills frozen zero-shot CLIP (teacher) into the LoRA-adapted predictions (student):
+  `loss = CE + kl_weight · T² · KL(teacher ‖ student)`. Motivated by the paper's note that
+  CE-only LoRA underperforms on Food101 / OxfordPets for lack of regularization.
+- Enabled via two new args in `main.py`: `--kl_weight` (0 = off, the CE-only baseline) and
+  `--kl_temp` (softmax temperature). With `--kl_weight 0` the run is identical to the baseline.
+- Grid: datasets {food101, oxford_pets, eurosat} × shots {1,4,16} × `kl_weight` {0.1,0.3,1.0}
+  × `kl_temp` {4,8}, seed 1 = **54 runs**. The `kl_weight=0` baseline is **not** re-run here —
+  reuse it from Table 3 (same backbone/config) in `results/clip_lora_results.csv`.
+- Same resume-safe behavior, but appends to its **own** CSV `results/clip_lora_kl.csv`, which has
+  two extra columns (`kl_weight`, `kl_temp`) before `accuracy`.
+
 ### `aggregate_results.py`
 ```bash
 python scripts/aggregate_results.py [--csv PATH] [--out PATH] [--no-save]
@@ -129,10 +150,12 @@ results/
 ├── clip_lora_summary.csv      # seed-averaged tables (written by aggregate_results.py)
 ├── clip_lora_fig3.csv         # figure-3 per-run rows (same columns)
 ├── clip_lora_fig3_summary.csv # seed-averaged figure-3 (aggregate with --csv/--out)
+├── clip_lora_kl.csv           # KL-extension per-run rows (+ kl_weight, kl_temp columns)
 ├── table3/<dataset>/*.log     # per-run logs (ViT-B/16), grouped by dataset
 ├── table4/<dataset>/*.log     # per-run logs (ViT-B/32), grouped by dataset
 ├── table5/<dataset>/*.log     # per-run logs (ViT-L/14), grouped by dataset
-└── fig3/<dataset>/*.log       # per-run logs (ablations), grouped by dataset
+├── fig3/<dataset>/*.log       # per-run logs (ablations), grouped by dataset
+└── kl/<dataset>/*.log         # per-run logs (KL extension), grouped by dataset
 ```
 The per-run log directories are git-ignored; `clip_lora_results.csv` / `clip_lora_summary.csv`
 can be committed for the report.
