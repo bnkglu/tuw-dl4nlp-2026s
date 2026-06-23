@@ -56,8 +56,11 @@ def load_runs(csv_path):
         for row in reader:
             if (row.get("status") or "").strip().upper() != "OK":
                 continue
+            # The run logs print "Final test accuracy: 69.42." and the scripts' grep keeps
+            # the trailing sentence period, so the CSV stores "69.42." -> strip it before parsing.
+            raw_acc = (row.get("accuracy") or "").strip().rstrip(".")
             try:
-                acc = float(row["accuracy"])
+                acc = float(raw_acc)
             except (TypeError, ValueError):
                 continue
             secs = None
