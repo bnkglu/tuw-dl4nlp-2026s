@@ -47,16 +47,16 @@ nohup bash scripts/run_fig3.sh eurosat       datasets > logs/fig3_eurosat.log 2>
 nohup bash scripts/run_fig3.sh imagenet      datasets > logs/fig3_imagenet.log 2>&1 &
 nohup bash scripts/run_fig3.sh stanford_cars datasets > logs/fig3_cars.log 2>&1 &
 
-# 4. summarize for the report
+# 4. summarize for the report (outputs go to results/aggregated/)
 python scripts/aggregate_results.py
 
 # 5. (extension) KL-distillation ablation — own CSV, reuses Table 3 as the kl_weight=0 baseline
 nohup bash scripts/run_kl_ablation.sh datasets > logs/kl_ablation.log 2>&1 &
-python scripts/aggregate_results.py --csv results/clip_lora_kl.csv --out results/clip_lora_kl_summary.csv
+python scripts/aggregate_results.py --csv results/clip_lora_kl.csv --out results/aggregated/clip_lora_kl_summary.csv
 
 # 6. (extension) full Table 3 grid WITH KL — pick best kl_weight/kl_temp from step 5 (defaults 1.0 / 4)
 nohup bash scripts/run_kl_table3.sh datasets 1.0 4 > logs/kl_table3.log 2>&1 &
-python scripts/aggregate_results.py --csv results/clip_lora_kl.csv --out results/clip_lora_kl_summary.csv
+python scripts/aggregate_results.py --csv results/clip_lora_kl.csv --out results/aggregated/clip_lora_kl_summary.csv
 ```
 
 ## Script details
@@ -152,16 +152,17 @@ python scripts/aggregate_results.py [--csv PATH] [--out PATH] [--no-save]
   the view to compare against the paper.
 - Skips `FAILED` rows; if a `(config, seed)` was re-run, keeps the last `OK` row (so duplicate
   rows from retries don't inflate the average).
-- Prints compact tables for `table3`/`table4`/`table5` and the full config for `fig3`; writes
-  `results/clip_lora_summary.csv` unless `--no-save`. Pure standard library (no pandas).
+- Prints compact tables for `table3`/`table4`/`table5` and the full config for `fig3`. All written
+  outputs go under **`results/aggregated/`** (created automatically); the summary defaults to
+  `results/aggregated/clip_lora_summary.csv` unless `--no-save`. Pure standard library (no pandas).
 - Also writes **paper-shaped** CSVs (`paper_<table>_<backbone>.csv`, e.g. `paper_table3_ViT-B-16.csv`):
-  datasets as rows, shots as columns, mean accuracy per cell, plus an Average row — pasteable
-  straight into the report. fig3 and the KL ablation are skipped (they aren't a clean dataset×shots
-  grid); `table3/4/5` and `kl_table3` are pivoted.
+  **shots as rows, datasets as columns**, mean accuracy per cell, plus an **Average column** — matching
+  the paper's orientation, pasteable straight into the report. fig3 and the KL ablation are skipped
+  (not a clean shots×datasets grid); `table3/4/5` and `kl_table3` are pivoted.
 - **Tables vs Figure 3 use separate CSVs.** Default reads the table CSV. For Figure 3, point
   it at the fig3 CSV and a distinct output (otherwise the summary name collides):
   ```bash
-  python scripts/aggregate_results.py --csv results/clip_lora_fig3.csv --out results/clip_lora_fig3_summary.csv
+  python scripts/aggregate_results.py --csv results/clip_lora_fig3.csv --out results/aggregated/clip_lora_fig3_summary.csv
   ```
 
 ## Output layout
@@ -171,11 +172,13 @@ results/
 ├── clip_lora_results.csv      # table3/table4/table5 per-run rows (table,dataset,backbone,shots,
 │                              #   seed,rank,params,encoder,position,dropout,accuracy,status,
 │                              #   start_time,seconds)  <- seconds = per-run wall-clock
-├── clip_lora_summary.csv      # seed-averaged tables (written by aggregate_results.py)
 ├── clip_lora_fig3.csv         # figure-3 per-run rows (same columns)
-├── clip_lora_fig3_summary.csv # seed-averaged figure-3 (aggregate with --csv/--out)
 ├── clip_lora_kl.csv           # KL-extension per-run rows (+ kl_weight, kl_temp columns)
-├── paper_table3_ViT-B-16.csv  # paper-shaped pivot (datasets × shots, + Average); one per table/backbone
+├── aggregated/                # everything aggregate_results.py writes lives here
+│   ├── clip_lora_summary.csv          # seed-averaged tables (long format)
+│   ├── clip_lora_fig3_summary.csv     # seed-averaged figure-3 (--csv/--out)
+│   ├── clip_lora_kl_summary.csv       # seed-averaged KL ablation
+│   └── paper_table3_ViT-B-16.csv      # paper-shaped pivot (shots × datasets, + Average); one per table/backbone
 ├── table3/<dataset>/*.log     # per-run logs (ViT-B/16), grouped by dataset
 ├── table4/<dataset>/*.log     # per-run logs (ViT-B/32), grouped by dataset
 ├── table5/<dataset>/*.log     # per-run logs (ViT-L/14), grouped by dataset
@@ -183,5 +186,5 @@ results/
 ├── kl/<dataset>/*.log         # per-run logs (KL ablation), grouped by dataset
 └── kl_table3/w<W>_t<T>/<dataset>/*.log   # per-run logs (Table 3 + KL), grouped by setting & dataset
 ```
-The per-run log directories are git-ignored; `clip_lora_results.csv` / `clip_lora_summary.csv`
-can be committed for the report.
+The per-run log directories are git-ignored; the raw CSVs and `aggregated/` outputs can be
+committed for the report.
