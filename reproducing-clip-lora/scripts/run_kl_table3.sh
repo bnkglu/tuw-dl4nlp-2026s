@@ -9,8 +9,9 @@
 #
 # Usage: bash run_kl_table3.sh [DATA_DIR] [KL_WEIGHT] [KL_TEMP]
 #   DATA_DIR   defaults to ./datasets
-#   KL_WEIGHT  defaults to 1.0   (set to the best value from run_kl_ablation.sh)
-#   KL_TEMP    defaults to 4
+#   KL_WEIGHT  defaults to 0.1   (best universal setting from run_kl_ablation.sh:
+#                                 helps every dataset, never hurts the EuroSAT control)
+#   KL_TEMP    defaults to 8     (T=8 was >= T=4 across the ablation)
 #
 # Resume-safe; writes to results/clip_lora_kl.csv with the `kl_table3` tag.
 # =============================================================================
@@ -20,8 +21,8 @@ set -u
 cd "$(dirname "$0")/.." || exit 1
 
 DATA_DIR="${1:-./datasets}"
-KL_WEIGHT="${2:-1.0}"
-KL_TEMP="${3:-4}"
+KL_WEIGHT="${2:-0.1}"
+KL_TEMP="${3:-8}"
 CSV_FILE="./results/clip_lora_kl.csv"
 BACKBONE="ViT-B/16"
 LOG_DIR="./results/kl_table3/w${KL_WEIGHT}_t${KL_TEMP}"

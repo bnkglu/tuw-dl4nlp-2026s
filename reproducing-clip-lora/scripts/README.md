@@ -54,8 +54,8 @@ python scripts/aggregate_results.py
 nohup bash scripts/run_kl_ablation.sh datasets > logs/kl_ablation.log 2>&1 &
 python scripts/aggregate_results.py --csv results/clip_lora_kl.csv --out results/aggregated/clip_lora_kl_summary.csv
 
-# 6. (extension) full Table 3 grid WITH KL — pick best kl_weight/kl_temp from step 5 (defaults 1.0 / 4)
-nohup bash scripts/run_kl_table3.sh datasets 1.0 4 > logs/kl_table3.log 2>&1 &
+# 6. (extension) full Table 3 grid WITH KL — defaults 0.1 / 8 (best universal setting from step 5)
+nohup bash scripts/run_kl_table3.sh datasets 0.1 8 > logs/kl_table3.log 2>&1 &
 python scripts/aggregate_results.py --csv results/clip_lora_kl.csv --out results/aggregated/clip_lora_kl_summary.csv
 ```
 
@@ -130,14 +130,16 @@ bash scripts/run_kl_ablation.sh [DATA_DIR] [LOG_DIR]   # ViT-B/16, LOG_DIR=resul
 
 ### `run_kl_table3.sh`
 ```bash
-bash scripts/run_kl_table3.sh [DATA_DIR] [KL_WEIGHT] [KL_TEMP]   # ViT-B/16; defaults 1.0 / 4
+bash scripts/run_kl_table3.sh [DATA_DIR] [KL_WEIGHT] [KL_TEMP]   # ViT-B/16; defaults 0.1 / 8
 ```
 - **Extension, broad view.** The *full* Table 3 grid (10 datasets × shots {1,2,4,8,16} × seeds
   {1,2,3} = **150 runs**) but with the KL term enabled, to see how distillation affects **every**
   dataset — not just the Food101 / OxfordPets failures the ablation targets.
-- `KL_WEIGHT` / `KL_TEMP` are passed straight to `main.py`; set them to the **best values from
-  `run_kl_ablation.sh`** (defaults `1.0` / `4`). The `kl_weight=0` baseline is the existing
-  Table 3 in `results/clip_lora_results.csv` — **not** re-run here.
+- `KL_WEIGHT` / `KL_TEMP` are passed straight to `main.py`. Defaults are **`0.1` / `8`**, the best
+  *universal* setting from `run_kl_ablation.sh` — it improves every dataset and never hurts the
+  EuroSAT control (higher weights help the Food101/OxfordPets failures more but damage weak-zero-shot
+  datasets). The `kl_weight=0` baseline is the existing Table 3 in `results/clip_lora_results.csv` —
+  **not** re-run here.
 - Appends to `results/clip_lora_kl.csv` with the `kl_table3` tag (so it sits next to the ablation
   rows but stays distinguishable). Logs go to `results/kl_table3/w<KL_WEIGHT>_t<KL_TEMP>/<dataset>/`,
   so different `(weight, temp)` settings don't collide and each is independently resume-safe.
