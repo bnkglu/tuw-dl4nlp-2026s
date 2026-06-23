@@ -157,8 +157,8 @@ def write_summary(summary, out_path, group_keys):
 
 
 def write_paper_tables(summary, out_dir):
-    """Pivot each table into the paper's shape: datasets (rows) x shots (cols), mean
-    accuracy in each cell, plus an Average row. One CSV per (table, backbone).
+    """Pivot each table into the paper's shape: shots (rows) x datasets (cols), mean
+    accuracy in each cell, plus an Average column. One CSV per (table, backbone).
 
     Only tables where every (dataset, shots) maps to a single config are pivoted —
     so fig3 and the KL *ablation* (which vary rank/params or kl_weight/kl_temp) are
@@ -188,17 +188,17 @@ def write_paper_tables(summary, out_dir):
         path = os.path.join(out_dir, f"paper_{table}_{safe_bb}.csv")
         with open(path, "w", newline="") as f:
             w = csv.writer(f)
-            w.writerow(["dataset"] + [str(s) for s in shots])
-            col_vals = {s: [] for s in shots}
-            for ds in datasets:
-                row = [ds]
-                for s in shots:
+            w.writerow(["shots"] + datasets + ["Average"])
+            for s in shots:
+                row = [s]
+                vals = []
+                for ds in datasets:
                     v = cells.get((ds, s), "")
                     row.append(v)
                     if v != "":
-                        col_vals[s].append(v)
+                        vals.append(v)
+                row.append(round(statistics.mean(vals), 2) if vals else "")
                 w.writerow(row)
-            w.writerow(["Average"] + [round(statistics.mean(col_vals[s]), 2) if col_vals[s] else "" for s in shots])
         written.append(path)
 
     for p in written:
@@ -214,7 +214,7 @@ def main():
                         help="path to the per-run results CSV")
     parser.add_argument("--out", default=None,
                         help="optional path to write the aggregated summary CSV "
-                             "(default: <results dir>/clip_lora_summary.csv)")
+                             "(default: <results dir>/aggregated/clip_lora_summary.csv)")
     parser.add_argument("--no-save", action="store_true", help="print only, do not write a summary CSV")
     args = parser.parse_args()
 
@@ -227,7 +227,10 @@ def main():
     print_summary(summary, group_keys)
 
     if not args.no_save:
-        out_path = args.out or os.path.join(os.path.dirname(args.csv), "clip_lora_summary.csv")
+        # By default, collect all aggregated outputs (summary + paper-shaped tables)
+        # under <results>/aggregated/ so they don't clutter the raw results dir.
+        results_dir = os.path.dirname(args.csv) or "."
+        out_path = args.out or os.path.join(results_dir, "aggregated", "clip_lora_summary.csv")
         write_summary(summary, out_path, group_keys)
         write_paper_tables(summary, os.path.dirname(out_path) or ".")
 
