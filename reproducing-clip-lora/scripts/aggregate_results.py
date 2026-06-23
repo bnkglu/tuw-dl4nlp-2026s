@@ -124,7 +124,7 @@ def print_summary(summary, group_keys):
         # Tables (table3/4/5) have fixed rank/params/encoder/position -> compact view.
         # fig3 varies them; the KL ablation varies kl_weight/kl_temp -> show those.
         is_fig3 = table == "fig3"
-        is_kl = table == "kl" and has_kl
+        is_kl = has_kl and table.startswith("kl")
         if is_fig3:
             header = f"{'dataset':<16}{'shots':>6}{'rank':>5}{'params':>10}{'encoder':>8}{'position':>9}{'n':>3}{'mean':>8}{'std':>7}{'sec':>7}"
         elif is_kl:
@@ -156,6 +156,56 @@ def write_summary(summary, out_path, group_keys):
     print(f"\nWrote {len(summary)} aggregated rows to {out_path}")
 
 
+def write_paper_tables(summary, out_dir):
+    """Pivot each table into the paper's shape: datasets (rows) x shots (cols), mean
+    accuracy in each cell, plus an Average row. One CSV per (table, backbone).
+
+    Only tables where every (dataset, shots) maps to a single config are pivoted —
+    so fig3 and the KL *ablation* (which vary rank/params or kl_weight/kl_temp) are
+    skipped, while table3/table4/table5 and kl_table3 (one setting) come out clean.
+    """
+    grids = {}          # (table, backbone) -> {(dataset, shots): mean_acc}
+    datasets_by = {}    # (table, backbone) -> set of datasets
+    shots_by = {}       # (table, backbone) -> set of shots
+    collide = set()
+    for r in summary:
+        key = (r["table"], r["backbone"])
+        cell = (r["dataset"], int(r["shots"]))
+        if cell in grids.setdefault(key, {}):
+            collide.add(key)          # >1 config per (dataset, shots) -> not a clean grid
+        grids[key][cell] = r["mean_acc"]
+        datasets_by.setdefault(key, set()).add(r["dataset"])
+        shots_by.setdefault(key, set()).add(int(r["shots"]))
+
+    written = []
+    for key, cells in grids.items():
+        if key in collide:
+            continue
+        table, backbone = key
+        datasets = sorted(datasets_by[key])
+        shots = sorted(shots_by[key])
+        safe_bb = backbone.replace("/", "-")
+        path = os.path.join(out_dir, f"paper_{table}_{safe_bb}.csv")
+        with open(path, "w", newline="") as f:
+            w = csv.writer(f)
+            w.writerow(["dataset"] + [str(s) for s in shots])
+            col_vals = {s: [] for s in shots}
+            for ds in datasets:
+                row = [ds]
+                for s in shots:
+                    v = cells.get((ds, s), "")
+                    row.append(v)
+                    if v != "":
+                        col_vals[s].append(v)
+                w.writerow(row)
+            w.writerow(["Average"] + [round(statistics.mean(col_vals[s]), 2) if col_vals[s] else "" for s in shots])
+        written.append(path)
+
+    for p in written:
+        print(f"Wrote paper-shaped table to {p}")
+    return written
+
+
 def main():
     # Resolve paths relative to the repo root (this file lives in scripts/).
     repo_root = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
@@ -179,6 +229,7 @@ def main():
     if not args.no_save:
         out_path = args.out or os.path.join(os.path.dirname(args.csv), "clip_lora_summary.csv")
         write_summary(summary, out_path, group_keys)
+        write_paper_tables(summary, os.path.dirname(out_path) or ".")
 
 
 if __name__ == "__main__":
