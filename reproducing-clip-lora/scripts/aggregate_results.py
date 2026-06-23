@@ -31,9 +31,19 @@ import sys
 # the measured outcome). Grouping on these collapses the 3 seeds together.
 GROUP_KEYS = ["table", "dataset", "backbone", "shots", "rank", "params", "encoder", "position"]
 
+# Extra config columns present only in some CSVs (e.g. the KL-extension ablation).
+# They are appended to the grouping key only when the CSV actually has them, so the
+# table3/table4/table5/fig3 behavior is unchanged.
+OPTIONAL_GROUP_KEYS = ["kl_weight", "kl_temp"]
+
+
+def _active_group_keys(fields):
+    """Required keys plus any optional config columns the CSV happens to carry."""
+    return GROUP_KEYS + [k for k in OPTIONAL_GROUP_KEYS if k in fields]
+
 
 def load_runs(csv_path):
-    """Return a dict: run_key (incl. seed) -> (accuracy, seconds_or_None), last OK row wins."""
+    """Return (runs, group_keys). runs: run_key (incl. seed) -> (acc, secs), last OK wins."""
     runs = {}
     with open(csv_path, newline="") as f:
         reader = csv.DictReader(f)
@@ -41,6 +51,7 @@ def load_runs(csv_path):
         missing = [c for c in GROUP_KEYS + ["seed", "accuracy", "status"] if c not in fields]
         if missing:
             sys.exit(f"ERROR: CSV is missing expected columns: {missing}\nFound: {fields}")
+        group_keys = _active_group_keys(fields)
         has_seconds = "seconds" in fields  # older CSVs may not have it
         for row in reader:
             if (row.get("status") or "").strip().upper() != "OK":
@@ -55,13 +66,21 @@ def load_runs(csv_path):
                     secs = float(row["seconds"])
                 except (TypeError, ValueError):
                     secs = None
-            run_key = tuple(row[k] for k in GROUP_KEYS) + (row["seed"],)
+            run_key = tuple(row[k] for k in group_keys) + (row["seed"],)
             runs[run_key] = (acc, secs)  # last OK wins
-    return runs
+    return runs, group_keys
 
 
-def aggregate(runs):
-    """Group runs by GROUP_KEYS and compute mean/std over seeds."""
+def _sortable(v):
+    """Numeric-aware sort: numbers before strings, each in natural order."""
+    try:
+        return (0, float(v))
+    except (TypeError, ValueError):
+        return (1, str(v))
+
+
+def aggregate(runs, group_keys):
+    """Group runs by group_keys and compute mean/std over seeds."""
     groups = {}
     for run_key, (acc, secs) in runs.items():
         gkey = run_key[:-1]          # drop the seed
@@ -75,7 +94,7 @@ def aggregate(runs):
         seeds = ",".join(sorted(s for s, _, _ in rows))
         mean = statistics.mean(accs)
         std = statistics.stdev(accs) if len(accs) > 1 else 0.0
-        summary.append(dict(zip(GROUP_KEYS, gkey)) | {
+        summary.append(dict(zip(group_keys, gkey)) | {
             "n_seeds": len(accs),
             "mean_acc": round(mean, 2),
             "std_acc": round(std, 2),
@@ -84,30 +103,29 @@ def aggregate(runs):
             "seeds": seeds,
         })
 
-    # Sort for stable, readable output.
-    def sort_key(r):
-        return (r["table"], r["dataset"], r["backbone"], int(r["shots"]),
-                int(r["rank"]), r["params"], r["encoder"], r["position"])
-
-    summary.sort(key=sort_key)
+    summary.sort(key=lambda r: tuple(_sortable(r[k]) for k in group_keys))
     return summary
 
 
-def print_summary(summary):
+def print_summary(summary, group_keys):
     if not summary:
         print("No OK runs found to aggregate.")
         return
+    has_kl = "kl_weight" in group_keys
     by_table = {}
     for r in summary:
         by_table.setdefault(r["table"], []).append(r)
 
     for table, rows in by_table.items():
         print(f"\n=== {table} ===")
-        # Tables (table3/table4) have fixed rank/params/encoder/position, so show a
-        # compact view; fig3 varies them, so show the full config.
+        # Tables (table3/4/5) have fixed rank/params/encoder/position -> compact view.
+        # fig3 varies them; the KL ablation varies kl_weight/kl_temp -> show those.
         is_fig3 = table == "fig3"
+        is_kl = table == "kl" and has_kl
         if is_fig3:
             header = f"{'dataset':<16}{'shots':>6}{'rank':>5}{'params':>10}{'encoder':>8}{'position':>9}{'n':>3}{'mean':>8}{'std':>7}{'sec':>7}"
+        elif is_kl:
+            header = f"{'dataset':<16}{'shots':>6}{'kl_w':>7}{'kl_T':>6}{'n':>3}{'mean':>8}{'std':>7}{'sec':>7}"
         else:
             header = f"{'dataset':<16}{'backbone':>10}{'shots':>6}{'n':>3}{'mean':>8}{'std':>7}{'sec':>7}"
         print(header)
@@ -117,13 +135,16 @@ def print_summary(summary):
                 print(f"{r['dataset']:<16}{r['shots']:>6}{r['rank']:>5}{r['params']:>10}"
                       f"{r['encoder']:>8}{r['position']:>9}{r['n_seeds']:>3}"
                       f"{r['mean_acc']:>8.2f}{r['std_acc']:>7.2f}{str(r['mean_sec']):>7}")
+            elif is_kl:
+                print(f"{r['dataset']:<16}{r['shots']:>6}{r['kl_weight']:>7}{r['kl_temp']:>6}"
+                      f"{r['n_seeds']:>3}{r['mean_acc']:>8.2f}{r['std_acc']:>7.2f}{str(r['mean_sec']):>7}")
             else:
                 print(f"{r['dataset']:<16}{r['backbone']:>10}{r['shots']:>6}{r['n_seeds']:>3}"
                       f"{r['mean_acc']:>8.2f}{r['std_acc']:>7.2f}{str(r['mean_sec']):>7}")
 
 
-def write_summary(summary, out_path):
-    fields = GROUP_KEYS + ["n_seeds", "mean_acc", "std_acc", "mean_sec", "total_sec", "seeds"]
+def write_summary(summary, out_path, group_keys):
+    fields = group_keys + ["n_seeds", "mean_acc", "std_acc", "mean_sec", "total_sec", "seeds"]
     os.makedirs(os.path.dirname(out_path) or ".", exist_ok=True)
     with open(out_path, "w", newline="") as f:
         writer = csv.DictWriter(f, fieldnames=fields)
@@ -148,13 +169,13 @@ def main():
         sys.exit(f"ERROR: results CSV not found: {args.csv}\n"
                  f"Run the experiments first (e.g. bash scripts/run_table_3.sh).")
 
-    runs = load_runs(args.csv)
-    summary = aggregate(runs)
-    print_summary(summary)
+    runs, group_keys = load_runs(args.csv)
+    summary = aggregate(runs, group_keys)
+    print_summary(summary, group_keys)
 
     if not args.no_save:
         out_path = args.out or os.path.join(os.path.dirname(args.csv), "clip_lora_summary.csv")
-        write_summary(summary, out_path)
+        write_summary(summary, out_path, group_keys)
 
 
 if __name__ == "__main__":
