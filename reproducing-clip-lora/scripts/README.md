@@ -20,6 +20,7 @@ see [`docs/reproduction_details.md`](../../docs/reproduction_details.md).
 | `run_table_5.sh` | Phase 1.C — full few-shot grid on **ViT-L/14** (Table 5). |
 | `run_fig3.sh` | Phase 2 — Figure 3 ablations (rank × matrices × encoder + placement) for one dataset. |
 | `run_kl_ablation.sh` | Extension — Knowledge-Preserving CLIP-LoRA: KL-to-zero-shot distillation sweep. |
+| `run_kl_table3.sh` | Extension — the full Table 3 grid (all 10 datasets) with KL distillation on. |
 | `aggregate_results.py` | Collapse per-run results into seed-averaged mean ± std for the report. |
 
 ## Typical workflow
@@ -51,6 +52,10 @@ python scripts/aggregate_results.py
 
 # 5. (extension) KL-distillation ablation — own CSV, reuses Table 3 as the kl_weight=0 baseline
 nohup bash scripts/run_kl_ablation.sh datasets > logs/kl_ablation.log 2>&1 &
+python scripts/aggregate_results.py --csv results/clip_lora_kl.csv --out results/clip_lora_kl_summary.csv
+
+# 6. (extension) full Table 3 grid WITH KL — pick best kl_weight/kl_temp from step 5 (defaults 1.0 / 4)
+nohup bash scripts/run_kl_table3.sh datasets 1.0 4 > logs/kl_table3.log 2>&1 &
 python scripts/aggregate_results.py --csv results/clip_lora_kl.csv --out results/clip_lora_kl_summary.csv
 ```
 
@@ -123,6 +128,21 @@ bash scripts/run_kl_ablation.sh [DATA_DIR] [LOG_DIR]   # ViT-B/16, LOG_DIR=resul
 - Same resume-safe behavior, but appends to its **own** CSV `results/clip_lora_kl.csv`, which has
   two extra columns (`kl_weight`, `kl_temp`) before `accuracy`.
 
+### `run_kl_table3.sh`
+```bash
+bash scripts/run_kl_table3.sh [DATA_DIR] [KL_WEIGHT] [KL_TEMP]   # ViT-B/16; defaults 1.0 / 4
+```
+- **Extension, broad view.** The *full* Table 3 grid (10 datasets × shots {1,2,4,8,16} × seeds
+  {1,2,3} = **150 runs**) but with the KL term enabled, to see how distillation affects **every**
+  dataset — not just the Food101 / OxfordPets failures the ablation targets.
+- `KL_WEIGHT` / `KL_TEMP` are passed straight to `main.py`; set them to the **best values from
+  `run_kl_ablation.sh`** (defaults `1.0` / `4`). The `kl_weight=0` baseline is the existing
+  Table 3 in `results/clip_lora_results.csv` — **not** re-run here.
+- Appends to `results/clip_lora_kl.csv` with the `kl_table3` tag (so it sits next to the ablation
+  rows but stays distinguishable). Logs go to `results/kl_table3/w<KL_WEIGHT>_t<KL_TEMP>/<dataset>/`,
+  so different `(weight, temp)` settings don't collide and each is independently resume-safe.
+- Heavy: it's a full 150-run grid, so only run it when you have spare GPU time.
+
 ### `aggregate_results.py`
 ```bash
 python scripts/aggregate_results.py [--csv PATH] [--out PATH] [--no-save]
@@ -134,6 +154,10 @@ python scripts/aggregate_results.py [--csv PATH] [--out PATH] [--no-save]
   rows from retries don't inflate the average).
 - Prints compact tables for `table3`/`table4`/`table5` and the full config for `fig3`; writes
   `results/clip_lora_summary.csv` unless `--no-save`. Pure standard library (no pandas).
+- Also writes **paper-shaped** CSVs (`paper_<table>_<backbone>.csv`, e.g. `paper_table3_ViT-B-16.csv`):
+  datasets as rows, shots as columns, mean accuracy per cell, plus an Average row — pasteable
+  straight into the report. fig3 and the KL ablation are skipped (they aren't a clean dataset×shots
+  grid); `table3/4/5` and `kl_table3` are pivoted.
 - **Tables vs Figure 3 use separate CSVs.** Default reads the table CSV. For Figure 3, point
   it at the fig3 CSV and a distinct output (otherwise the summary name collides):
   ```bash
@@ -151,11 +175,13 @@ results/
 ├── clip_lora_fig3.csv         # figure-3 per-run rows (same columns)
 ├── clip_lora_fig3_summary.csv # seed-averaged figure-3 (aggregate with --csv/--out)
 ├── clip_lora_kl.csv           # KL-extension per-run rows (+ kl_weight, kl_temp columns)
+├── paper_table3_ViT-B-16.csv  # paper-shaped pivot (datasets × shots, + Average); one per table/backbone
 ├── table3/<dataset>/*.log     # per-run logs (ViT-B/16), grouped by dataset
 ├── table4/<dataset>/*.log     # per-run logs (ViT-B/32), grouped by dataset
 ├── table5/<dataset>/*.log     # per-run logs (ViT-L/14), grouped by dataset
 ├── fig3/<dataset>/*.log       # per-run logs (ablations), grouped by dataset
-└── kl/<dataset>/*.log         # per-run logs (KL extension), grouped by dataset
+├── kl/<dataset>/*.log         # per-run logs (KL ablation), grouped by dataset
+└── kl_table3/w<W>_t<T>/<dataset>/*.log   # per-run logs (Table 3 + KL), grouped by setting & dataset
 ```
 The per-run log directories are git-ignored; `clip_lora_results.csv` / `clip_lora_summary.csv`
 can be committed for the report.
