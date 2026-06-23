@@ -111,12 +111,17 @@ python scripts/aggregate_results.py [--csv PATH] [--out PATH] [--no-save]
   the view to compare against the paper.
 - Skips `FAILED` rows; if a `(config, seed)` was re-run, keeps the last `OK` row (so duplicate
   rows from retries don't inflate the average).
-- Prints compact tables for `table3`/`table4`/`table5` and the full config for `fig3`; writes
-  `results/clip_lora_summary.csv` unless `--no-save`. Pure standard library (no pandas).
+- Prints compact tables for `table3`/`table4`/`table5` and the full config for `fig3`. All written
+  outputs go under **`results/aggregated/`** (created automatically); the summary defaults to
+  `results/aggregated/clip_lora_summary.csv` unless `--no-save`. Pure standard library (no pandas).
+- Also writes **paper-shaped** CSVs (`paper_<table>_<backbone>.csv`, e.g. `paper_table3_ViT-B-16.csv`):
+  **shots as rows, datasets as columns**, mean accuracy per cell, plus an **Average column** — matching
+  the paper's orientation, pasteable straight into the report. fig3 is skipped (it's an ablation, not
+  a shots×datasets grid); `table3/4/5` are pivoted.
 - **Tables vs Figure 3 use separate CSVs.** Default reads the table CSV. For Figure 3, point
   it at the fig3 CSV and a distinct output (otherwise the summary name collides):
   ```bash
-  python scripts/aggregate_results.py --csv results/clip_lora_fig3.csv --out results/clip_lora_fig3_summary.csv
+  python scripts/aggregate_results.py --csv results/clip_lora_fig3.csv --out results/aggregated/clip_lora_fig3_summary.csv
   ```
 
 ## Output layout
@@ -126,13 +131,15 @@ results/
 ├── clip_lora_results.csv      # table3/table4/table5 per-run rows (table,dataset,backbone,shots,
 │                              #   seed,rank,params,encoder,position,dropout,accuracy,status,
 │                              #   start_time,seconds)  <- seconds = per-run wall-clock
-├── clip_lora_summary.csv      # seed-averaged tables (written by aggregate_results.py)
 ├── clip_lora_fig3.csv         # figure-3 per-run rows (same columns)
-├── clip_lora_fig3_summary.csv # seed-averaged figure-3 (aggregate with --csv/--out)
+├── aggregated/                # everything aggregate_results.py writes lives here
+│   ├── clip_lora_summary.csv          # seed-averaged tables (long format)
+│   ├── clip_lora_fig3_summary.csv     # seed-averaged figure-3 (--csv/--out)
+│   └── paper_table3_ViT-B-16.csv      # paper-shaped pivot (shots × datasets, + Average); one per table/backbone
 ├── table3/<dataset>/*.log     # per-run logs (ViT-B/16), grouped by dataset
 ├── table4/<dataset>/*.log     # per-run logs (ViT-B/32), grouped by dataset
 ├── table5/<dataset>/*.log     # per-run logs (ViT-L/14), grouped by dataset
 └── fig3/<dataset>/*.log       # per-run logs (ablations), grouped by dataset
 ```
-The per-run log directories are git-ignored; `clip_lora_results.csv` / `clip_lora_summary.csv`
-can be committed for the report.
+The per-run log directories are git-ignored; the raw CSVs and `aggregated/` outputs can be
+committed for the report.
