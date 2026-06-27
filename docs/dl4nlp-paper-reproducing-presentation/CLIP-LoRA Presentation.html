@@ -1020,6 +1020,25 @@
       <div class="foot"><span><span class="dot">●</span>&nbsp;&nbsp;CLIP-LoRA</span><span>03 — Reproduction</span></div>
     </div>
   </section>
+  <section data-label="Figure 3 interpretation" data-speaker-notes="So what does the ablation actually tell us? Four things, and each one confirms a default the paper chose. First, rank saturates early: on ImageNet the query-key-value setup goes 71.3 at rank 1, peaks at 71.5 around rank 4, and even dips to 70.8 at rank 32 — essentially flat, which is why the default rank is just 2. Second, which matrices: at rank 2, going from a single matrix to QV or QKV gains about half a point, but adding the output projection on top, QKVO, adds nothing — so QKV is the sweet spot. Third, the encoder: adapting both encoders, 71.5, beats vision-only at 70.0 and text-only at 71.0 — both wins. And fourth, placement: spreading the adapters over all layers beats bottom or top only, and on EuroSAT that's dramatic — 87 for all layers versus 81.5 for bottom. So our reproduction confirms every one of the paper's four design defaults: rank 2, Q-K-V, both encoders, all layers.">
+    <div class="slide">
+      <div class="kicker anim"><span class="num">03</span><span>Reproduction &middot; Figure 3 &mdash; What it tells us</span><span class="rule"></span></div>
+      <h1 class="title anim d1" style="font-size:44px;margin-top:12px">The ablation confirms all four defaults</h1>
+
+      <div class="grid anim d2" style="grid-template-columns:1fr 1fr;gap:20px;margin-top:24px">
+        <div class="card"><span class="ic" style="color:var(--teal)">Rank</span><h3 style="margin-top:6px">Saturates early</h3><p style="margin-top:6px">ImageNet QKV: <b>71.3</b> (r1) &rarr; 71.5 (r4) &rarr; <b>70.8</b> (r32) &mdash; flat, even dips at high rank (mild overfit). <b style="color:var(--teal)">&rArr; default rank = 2</b></p></div>
+        <div class="card"><span class="ic" style="color:var(--teal)">Attention matrices</span><h3 style="margin-top:6px">QKV is the sweet spot</h3><p style="margin-top:6px">rank2, both: Q 71.0 &middot; V 71.4 &middot; QV 71.6 &middot; QKV 71.5 &middot; QKVO 71.5 &mdash; adding O gives nothing. <b style="color:var(--teal)">&rArr; W<sub>q</sub>,W<sub>k</sub>,W<sub>v</sub></b></p></div>
+        <div class="card"><span class="ic" style="color:var(--teal)">Encoder</span><h3 style="margin-top:6px">Adapt both</h3><p style="margin-top:6px">ImageNet QKV: vision 70.0 &middot; text 71.0 &middot; <b>both 71.5</b> &mdash; both beats either alone. <b style="color:var(--teal)">&rArr; vision + text</b></p></div>
+        <div class="card"><span class="ic" style="color:var(--teal)">Placement</span><h3 style="margin-top:6px">All layers win</h3><p style="margin-top:6px">Up / Bottom / All &mdash; ImageNet 71.1 / 70.8 / <b>71.6</b>; EuroSAT 81.9 / 81.5 / <b>87.0</b> (big jump). <b style="color:var(--teal)">&rArr; all layers</b></p></div>
+      </div>
+
+      <div class="card anim d3" style="margin-top:18px;border-color:#A9D7D4;background:var(--teal-soft)">
+        <p style="margin:0;color:#0a5b5a;font-size:19px;line-height:1.4"><b>Outcome:</b> our ablation reproduces and confirms every one of the paper&apos;s default choices &mdash; <b>rank 2 &middot; Q/K/V &middot; both encoders &middot; all layers</b> &mdash; so the &ldquo;one fixed recipe&rdquo; really does hold across datasets.</p>
+      </div>
+      <div class="foot"><span><span class="dot">&#9679;</span>&nbsp;&nbsp;CLIP-LoRA</span><span>03 &mdash; Reproduction</span></div>
+    </div>
+  </section>
+
 
   <!-- ============ 18 · CHALLENGES ============ -->
   <section data-label="Challenges" data-speaker-notes="And this slide is really the heart of the reproduction story — what actually made it hard. The biggest category was data. Several of the original dataset download links are just dead — 404s and 403s — so we had to re-source Caltech, Stanford Cars, SUN397 and EuroSAT from mirrors like Kaggle, HuggingFace and Zenodo. SUN397 specifically ships as a hundred thousand images packed inside parquet files, so we wrote a custom extraction script. ImageNet is 144 gigabytes and needs a manual login — that's the single heaviest thing to fetch. Then there were environment bugs: an older V100 GPU was missing a CUDA kernel that newer PyTorch needed, which is part of why we moved to the A40; and a NumPy version change broke the accuracy function — calling float on an array — which we fixed by switching to dot-item. And finally, sheer scale: 150 runs per table plus hundreds of ablation runs, which is why the failure-tolerant runner and round-robin splitting mattered so much. None of these are conceptual — but together they're most of the work.">
