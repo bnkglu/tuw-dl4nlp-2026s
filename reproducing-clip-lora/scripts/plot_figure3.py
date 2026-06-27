@@ -59,8 +59,8 @@ def bars(rows, ds):
 
 def main():
     rows = load()
-    fig = plt.figure(figsize=(15, 11))
-    outer = GridSpec(3, 1, hspace=0.42, figure=fig)
+    fig = plt.figure(figsize=(15, 12.5))
+    outer = GridSpec(3, 1, hspace=0.62, figure=fig)
 
     for di, (ds, title) in enumerate(DATASETS):
         # per-dataset colour scale across all three heatmaps
@@ -104,8 +104,9 @@ def main():
         axb.tick_params(labelsize=8)
         axb.spines[["top", "right"]].set_visible(False)
 
-        fig.text(0.5, outer[di].get_position(fig).y0 - 0.015, title,
-                 ha="center", fontsize=12, style="italic")
+        # dataset caption, placed clearly below the row's x-axis labels
+        fig.text(0.5, outer[di].get_position(fig).y0 - 0.052, title,
+                 ha="center", fontsize=14, fontweight="bold", style="italic")
 
     out = os.path.join(OUT_DIR, "figure3_reproduction.png")
     fig.savefig(out, dpi=200, bbox_inches="tight")
