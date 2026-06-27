@@ -82,10 +82,14 @@ def main():
                 ax.set_yticks(range(len(PARAMS)), PARAM_LABELS, fontsize=9)
             else:
                 ax.set_yticks([])
+            span = (vmax - vmin) or 1.0
             for i in range(len(PARAMS)):
                 for j in range(len(RANKS)):
                     if not np.isnan(m[i, j]):
-                        ax.text(j, i, f"{m[i, j]:.1f}", ha="center", va="center", fontsize=6.5)
+                        # white text on dark (high-accuracy) cells, dark text on light ones
+                        norm = (m[i, j] - vmin) / span
+                        ax.text(j, i, f"{m[i, j]:.1f}", ha="center", va="center",
+                                fontsize=6.5, color="white" if norm > 0.6 else "#1a1a1a")
 
         cax = fig.add_subplot(gs[4])
         fig.colorbar(im, cax=cax)
