@@ -67,7 +67,8 @@ def main():
         mats = [heat(rows, ds, e) for e, _ in ENCODERS]
         vmin = np.nanmin([np.nanmin(m) for m in mats])
         vmax = np.nanmax([np.nanmax(m) for m in mats])
-        gs = outer[di].subgridspec(1, 5, width_ratios=[1, 1, 1, 0.07, 0.9], wspace=0.25)
+        # columns: 3 heatmaps · placement bars · colorbar (far right)
+        gs = outer[di].subgridspec(1, 5, width_ratios=[1, 1, 1, 0.9, 0.07], wspace=0.30)
 
         im = None
         for ei, (enc, elabel) in enumerate(ENCODERS):
@@ -86,12 +87,12 @@ def main():
                     if not np.isnan(m[i, j]):
                         ax.text(j, i, f"{m[i, j]:.1f}", ha="center", va="center", fontsize=6.5)
 
-        cax = fig.add_subplot(gs[3])
+        cax = fig.add_subplot(gs[4])
         fig.colorbar(im, cax=cax)
         cax.set_ylabel("Top-1 Accuracy [%]", fontsize=8)
 
         # placement bar chart
-        axb = fig.add_subplot(gs[4])
+        axb = fig.add_subplot(gs[3])
         vals = bars(rows, ds)
         labels = ["Up", "Bottom", "All"]
         cmap = plt.get_cmap("Greens")

@@ -1006,16 +1006,16 @@
   <section data-label="Figure 3" data-speaker-notes="This is our reproduction of the paper's Figure 3 — the full ablation as a set of heatmaps. For each of the three datasets, the three grids show top-1 accuracy as we vary the LoRA rank along the columns and which attention matrices get adapters down the rows, separately for the vision encoder, the text encoder, and both together. Two readings. First, across the columns the colour barely changes — accuracy is essentially flat from rank 1 to 32 — which is the paper's justification for the tiny default rank of 2. Second, down the rows, the query-key-value combination is at or near the best, while single matrices trail and adding the output projection gives nothing extra. The bar charts on the right confirm the placement default: spreading adapters over all layers beats bottom or top only. All of this matches the paper's Figure 3, computed from our own runs.">
     <div class="slide">
       <div class="kicker anim"><span class="num">03</span><span>Reproduction · Figure 3 — Rank Ablation</span><span class="rule"></span><span class="who split">Bankoglu · ImageNet, EuroSAT &nbsp;|&nbsp; Asif · Cars</span></div>
-      <div class="row anim d1" style="justify-content:space-between;align-items:baseline;gap:28px;margin-top:12px">
-        <h1 class="title" style="font-size:40px;margin:0;white-space:nowrap">Rank × matrices × encoder — reproduced</h1>
+      <div class="row anim d1" style="justify-content:space-between;align-items:baseline;gap:28px;margin-top:4px">
+        <h1 class="title" style="font-size:26px;margin:0;white-space:nowrap">Rank × matrices × encoder — reproduced</h1>
         <span class="status" style="color:#0a5b5a;background:var(--teal-soft);border-color:#A9D7D4"><span class="led" style="background:var(--teal);box-shadow:0 0 0 4px rgba(14,124,123,.18)"></span>matches the paper's Figure 3</span>
       </div>
 
-      <div class="anim d2" style="margin-top:10px;background:#fff;border:1px solid var(--line);border-radius:14px;padding:10px 12px;box-shadow:0 1px 0 rgba(19,33,43,.04);text-align:center">
-        <img src="assets/figure3_reproduction.png" alt="Figure 3 reproduced: rank x attention-matrix heatmaps (Vision / Text / Vision+Text) plus Up/Bottom/All placement bars, for ImageNet, Stanford Cars and EuroSAT" style="width:100%;max-height:78vh;height:auto;display:block;margin:0 auto;object-fit:contain">
+      <div class="anim d2" style="margin-top:4px;background:#fff;border:1px solid var(--line);border-radius:12px;padding:6px 8px;box-shadow:0 1px 0 rgba(19,33,43,.04);text-align:center">
+        <img src="assets/figure3_reproduction.png" alt="Figure 3 reproduced: rank x attention-matrix heatmaps (Vision / Text / Vision+Text) plus Up/Bottom/All placement bars, for ImageNet, Stanford Cars and EuroSAT" style="width:100%;max-height:88vh;height:auto;display:block;margin:0 auto;object-fit:contain">
       </div>
 
-      <p class="anim d3" style="margin:12px 0 0;font-size:15px;color:var(--muted);font-family:var(--mono)">4-shot · top-1 accuracy (%) · our reproduction of the paper's Figure 3 · <b style="color:var(--ink)">flat across rank ⇒ default r=2 · QKV ≈ best matrix set · both encoders &amp; all layers win</b></p>
+      <p class="anim d3" style="margin:5px 0 0;font-size:12.5px;color:var(--muted);font-family:var(--mono)">4-shot · top-1 accuracy (%) · our reproduction of the paper's Figure 3 · <b style="color:var(--ink)">flat across rank ⇒ default r=2 · QKV ≈ best matrix set · both encoders &amp; all layers win</b></p>
       <div class="foot"><span><span class="dot">●</span>&nbsp;&nbsp;CLIP-LoRA</span><span>03 — Reproduction</span></div>
     </div>
   </section>
