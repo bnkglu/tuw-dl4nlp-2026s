@@ -145,7 +145,14 @@ good.
 > - ✅ **Figure 3 — EuroSAT** — complete (129/129 runs, 0 failed)
 > - ✅ **Figure 3 — ImageNet** — complete (129/129 runs, 0 failed)
 > - ✅ **Table 5 (ViT-L/14)** — complete (150/150 runs, 0 failed)
-> - ⬜ **Table 4 (ViT-B/32)** and **Figure 3 — StanfordCars** — not started yet
+> - ✅ **Table 4 (ViT-B/32)** — complete (150/150 runs, 0 failed)
+> - ✅ **Figure 3 — StanfordCars** — complete (129/129 runs, 0 failed)
+>
+> Two runs finished but had their accuracy dropped from the CSV (interrupted between
+> the run and the CSV write); both were recovered from their logs — Table 4 ImageNet
+> s4 seed2 → 66.48 and Figure 3 StanfordCars r1/q_v_k/vision/seed1 → 71.91. The
+> bookkeeping was then audited end-to-end (`scripts/verify_results.py`): 837/837 rows
+> match a log, no FAILED↔log mismatches.
 
 Run from the repo root (`reproducing-clip-lora/`) so `logs/` lands here. Master logs go to
 `logs/` (git-ignored); per-run logs and result CSVs go under `results/` (committed).
