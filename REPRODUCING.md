@@ -15,6 +15,13 @@ cd reproducing-clip-lora
 
 ---
 
+## Work distribution
+
+- **Zarek Asif:** Table 4 (ViT-B/32) and Figure 3 — StanfordCars.
+- **Hasan Berke Bankoglu:** Table 3 (ViT-B/16), Table 5 (ViT-L/14), Figure 3 — EuroSAT & ImageNet, the KL-divergence extension (code, ablation, and broad KL Table-3 evaluation), plus the results aggregation, auditing, and cleanup.
+
+---
+
 ## 1. Environment
 
 ```bash
