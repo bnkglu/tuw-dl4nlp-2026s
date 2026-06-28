@@ -1087,6 +1087,7 @@
           <div class="eqn amber anim d3" style="font-size:20px">
             <span class="var">L</span> = CE(<span class="var">z</span><sub style="font-size:12px">LoRA</sub>, <span class="var">y</span>) <span class="op">+ λT² ·</span> KL( <span class="var">p</span><sub style="font-size:12px">ZS,T</sub> ‖ <span class="var">p</span><sub style="font-size:12px">LoRA,T</sub> )
           </div>
+          <p style="margin:8px 0 0;font-size:14px;color:var(--muted);font-family:var(--mono)">p<sub>ZS,T</sub> = softmax(z<sub>ZS</sub> / T),&nbsp;&nbsp; p<sub>LoRA,T</sub> = softmax(z<sub>LoRA</sub> / T)</p>
           <ul class="points" style="margin-top:22px;gap:14px">
             <li><b>p<sub>ZS,T</sub></b> — temperature-softened class distribution from <b>frozen</b> zero-shot CLIP, used as the fixed <b>teacher</b>.</li>
             <li><b>p<sub>LoRA,T</sub></b> — temperature-softened class distribution from the <b>adapted</b> LoRA model, used as the <b>student</b>.</li>
@@ -1143,7 +1144,7 @@
         </table>
       </div>
       <div class="card anim d3" style="margin-top:10px;border-color:#A9D7D4;background:var(--teal-soft)">
-        <p style="margin:0;color:#0a5b5a;font-size:16px;line-height:1.4"><b>Verdict:</b> our CE reproduction matches the paper; KL adds a consistent <b>+0.2&rarr;+0.6</b> on top (35/50 cells), largest on the fine-grained failure cases &mdash; Food101 +2.1, DTD +2.2 at 16-shot &mdash; so KL improves on the original CLIP-LoRA too.</p>
+        <p style="margin:0;color:#0a5b5a;font-size:16px;line-height:1.4"><b>Verdict:</b> our CE reproduction matches the paper; KL adds a consistent <b>+0.2&rarr;+0.6</b> on top (35/50 cells), largest on datasets where CE-only adaptation was weak or unstable &mdash; Food101 +2.1, DTD +2.2 at 16-shot &mdash; so KL improves on the original CLIP-LoRA too.</p>
       </div>
       <div class="foot"><span><span class="dot" style="color:var(--amber)">&#9679;</span>&nbsp;&nbsp;CLIP-LoRA</span><span>04 &mdash; Extension</span></div>
     </div>
@@ -1159,7 +1160,7 @@
         <div class="card"><span class="ic">Reproduced &middot; how</span><h3 style="margin-top:6px">Faithful, end-to-end</h3><p>Forked the authors&apos; repo + our own runner scripts; Tables 3/4/5 = 10 datasets &times; 5 shots &times; 3 seeds &times; 3 backbones (450 runs), plus a one-seed Figure 3 trend reproduction on ImageNet, StanfordCars, EuroSAT (~275 GPU-h). Every average within <b>&asymp;0.3%</b> of the paper across the full grid.</p></div>
         <div class="card"><span class="ic">Challenges</span><h3 style="margin-top:6px">Mostly data &amp; scale</h3><p>Dead dataset URLs, 144 GB ImageNet, CUDA/PyTorch issues, and a NumPy break &mdash; handled with dataset fixes, compatible wheels (running on both V100 and A40), and a failure-tolerant runner.</p></div>
         <div class="card" style="border-color:#E2C49C;background:var(--amber-soft)"><span class="ic" style="color:#8a4a12">Extended</span><h3 style="margin-top:6px;color:#8a4a12">KL anchor to zero&#8209;shot CLIP</h3><p style="color:#8a4a12">L = CE + &lambda;&middot;T&sup2;&middot;KL(zero&#8209;shot &#8214; LoRA); ablation picked &lambda;=0.1, T=8. Reduces drift from CLIP&apos;s prior.</p></div>
-        <div class="card" style="border-color:#A9D7D4;background:var(--teal-soft)"><span class="ic" style="color:#0a5b5a">Extension &middot; result</span><h3 style="margin-top:6px;color:#0a5b5a">+0.47 avg &middot; 35/50 cells improved</h3><p style="color:#0a5b5a">Biggest gains on Food101 +1.9, EuroSAT +1.2, DTD +0.9 &mdash; the failure cases. Supports the hypothesis.</p></div>
+        <div class="card" style="border-color:#A9D7D4;background:var(--teal-soft)"><span class="ic" style="color:#0a5b5a">Extension &middot; result</span><h3 style="margin-top:6px;color:#0a5b5a">+0.47 avg &middot; 35/50 cells improved</h3><p style="color:#0a5b5a">Biggest gains on Food101 +1.9, EuroSAT +1.2, DTD +0.9 &mdash; supporting the drift-regularization hypothesis.</p></div>
       </div>
 
       <div class="card anim d3" style="margin-top:18px;padding:16px 26px">
