@@ -1218,6 +1218,24 @@
       <div class="foot"><span><span class="dot">&#9679;</span>&nbsp;&nbsp;CLIP-LoRA</span><span>Appendix</span></div>
     </div>
   </section>
+  <section data-label="Appendix — runtime" data-speaker-notes="A backup slide on runtime, since the paper highlights efficiency. The paper reports CLIP-LoRA training a 16-shot ImageNet model in about 50 minutes on a single A100. On our hardware — a mix of V100 and A40 — the same ViT-B/16 run takes about 104 minutes, ViT-B/32 about 92, and the large ViT-L/14 about 191. The roughly two-times gap on the same backbone is just the slower GPU, not a method slowdown: it is still minutes, not the many hours that prompt-tuning methods like PLOT++ need. Runtime scales smoothly with shots — on ImageNet ViT-B/16, from about 12 minutes at one shot to 104 at sixteen. The whole project, every table, figure and the extension, was about 1041 runs and 275 GPU-hours, roughly eleven and a half GPU-days.">
+    <div class="slide">
+      <div class="kicker anim"><span class="num">A</span><span>Appendix &middot; Runtime &amp; efficiency</span><span class="rule"></span></div>
+      <h1 class="title anim d1" style="font-size:40px;margin-top:10px">Efficient in our hands too</h1>
+      <p class="anim d1" style="margin:6px 0 0;font-size:15px;color:var(--muted)">Per-run wall-clock from our logs. Paper reports CLIP-LoRA at <b>~50 min</b> for 16-shot ImageNet on a single <b>A100</b>; we ran on a mix of <b>V100 / A40</b>.</p>
+
+      <div class="grid anim d2" style="grid-template-columns:1fr 1fr 1fr;gap:18px;margin-top:24px">
+        <div class="card"><span class="ic">16-shot ImageNet</span><h3 style="margin-top:6px">Paper 50 min (A100)</h3><p style="margin-top:6px">Ours (V100/A40): <b>104 min</b> ViT-B/16 &middot; 92 min ViT-B/32 &middot; 191 min ViT-L/14.</p></div>
+        <div class="card"><span class="ic">Scaling &middot; ImageNet ViT-B/16</span><h3 style="margin-top:6px">12 &rarr; 104 min</h3><p style="margin-top:6px">1 / 2 / 4 / 8 / 16-shot &asymp; 12 / 19 / 31 / 55 / 104 min &mdash; smooth with shots.</p></div>
+        <div class="card"><span class="ic">Whole project</span><h3 style="margin-top:6px">~275 GPU-h</h3><p style="margin-top:6px">1041 runs across all tables, Figure 3 and the extension (~11.4 GPU-days).</p></div>
+      </div>
+
+      <div class="card anim d3" style="margin-top:18px;border-color:#A9D7D4;background:var(--teal-soft)">
+        <p style="margin:0;color:#0a5b5a;font-size:18px;line-height:1.45"><b>Same story as the paper &mdash; minutes, not hours.</b> Our ~2&times; on 16-shot ImageNet vs the paper&apos;s 50 min is the V100/A40-vs-A100 hardware gap, not a method slowdown; CLIP-LoRA stays far below prompt-tuning methods (e.g. PLOT++ &asymp; 15 h on the same task).</p>
+      </div>
+      <div class="foot"><span><span class="dot">&#9679;</span>&nbsp;&nbsp;CLIP-LoRA</span><span>Appendix</span></div>
+    </div>
+  </section>
 </deck-stage>
 
 <script>
