@@ -1085,12 +1085,13 @@
         </div>
         <div>
           <div class="eqn amber anim d3" style="font-size:20px">
-            <span class="var">L</span> = CE(<span class="var">lora_logits</span>, <span class="var">y</span>) <span class="op">+ λ·T² ·</span> KL( <span class="var">p</span><sub style="font-size:12px">zero&#8209;shot</sub>/T ‖ <span class="var">p</span><sub style="font-size:12px">lora</sub>/T )
+            <span class="var">L</span> = CE(<span class="var">z</span><sub style="font-size:12px">LoRA</sub>, <span class="var">y</span>) <span class="op">+ λT² ·</span> KL( <span class="var">p</span><sub style="font-size:12px">ZS,T</sub> ‖ <span class="var">p</span><sub style="font-size:12px">LoRA,T</sub> )
           </div>
           <ul class="points" style="margin-top:22px;gap:14px">
-            <li><b>p<sub>zero&#8209;shot</sub></b> — softmax over class similarities from <b>frozen</b> CLIP (a fixed teacher).</li>
-            <li><b>p<sub>lora</sub></b> — softmax from the <b>adapted</b> LoRA model; <b>T</b> = temperature (T² keeps the gradient scale).</li>
-            <li><b>λ</b> sets anchor strength; <b>λ = 0</b> recovers the CE&#8209;only baseline — a clean control. Chosen by ablation: <b>λ = 0.1, T = 8</b>.</li>
+            <li><b>p<sub>ZS,T</sub></b> — temperature-softened class distribution from <b>frozen</b> zero-shot CLIP, used as the fixed <b>teacher</b>.</li>
+            <li><b>p<sub>LoRA,T</sub></b> — temperature-softened class distribution from the <b>adapted</b> LoRA model, used as the <b>student</b>.</li>
+            <li><b>T</b> controls distribution softness; <b>T²</b> keeps the KL gradient scale comparable.</li>
+            <li><b>λ</b> controls anchor strength; <b>λ = 0</b> recovers the CE-only baseline. Chosen by ablation: <b>λ = 0.1, T = 8</b>.</li>
           </ul>
           <p style="margin:16px 0 0;font-size:16px;color:var(--muted);font-family:var(--mono)">KL is over class probability distributions — not weight tensors.</p>
         </div>
@@ -1234,6 +1235,32 @@
         <p style="margin:0;color:#0a5b5a;font-size:18px;line-height:1.45"><b>Same story as the paper &mdash; minutes, not hours.</b> Our ~2&times; on 16-shot ImageNet vs the paper&apos;s 50 min is the V100/A40-vs-A100 hardware gap, not a method slowdown; CLIP-LoRA stays far below prompt-tuning methods (e.g. PLOT++ &asymp; 15 h on the same task).</p>
       </div>
       <div class="foot"><span><span class="dot">&#9679;</span>&nbsp;&nbsp;CLIP-LoRA</span><span>Appendix</span></div>
+    </div>
+  </section>
+  <section data-label="Appendix — KL implementation" data-speaker-notes="A backup slide on the exact KL implementation. The term is a temperature-scaled knowledge-distillation KL: frozen zero-shot CLIP is the teacher, CLIP-LoRA is the student. Crucially, temperature is applied to the logits before the softmax, not to probabilities. At T equals one it reduces to KL between the standard softmax class distributions; T greater than one softens them, and the T-squared factor keeps the gradient scale comparable. One PyTorch detail: F dot kl_div expects log-probabilities as input and probabilities as target, so passing student log-probs and teacher probs computes KL of teacher against student, which is the standard distillation direction.">
+    <div class="slide">
+      <div class="kicker anim" style="color:var(--amber)"><span class="num" style="background:var(--amber-soft);color:#8a4a12">A</span><span>Appendix &middot; KL implementation detail</span><span class="rule"></span></div>
+      <h1 class="title anim d1" style="font-size:34px;margin-top:8px">Temperature-scaled KD: formula &amp; code</h1>
+      <div class="eqn amber anim d2" style="font-size:18px;margin-top:12px">
+        <span class="var">L</span> = CE(<span class="var">z</span><sub style="font-size:12px">LoRA</sub>, <span class="var">y</span>) <span class="op">+ λT² ·</span> KL( softmax(<span class="var">z</span><sub style="font-size:12px">ZS</sub> / T) ‖ softmax(<span class="var">z</span><sub style="font-size:12px">LoRA</sub> / T) )
+      </div>
+      <p class="anim d2" style="margin:12px 0 0;font-size:15px;color:var(--muted);line-height:1.5">Temperature-scaled knowledge distillation: <b style="color:var(--ink)">frozen zero-shot CLIP = teacher</b>, <b style="color:var(--ink)">CLIP-LoRA = student</b>. Temperature is applied to the <b style="color:var(--ink)">logits</b> before softmax, not to probabilities. <b style="color:var(--ink)">T = 1</b> reduces to KL between the standard softmax distributions; <b style="color:var(--ink)">T &gt; 1</b> softens them; the <b style="color:var(--ink)">T²</b> factor keeps the KL gradient scale comparable.</p>
+      <pre class="anim d3" style="margin:14px 0 0;background:#0f2a36;color:#e7eef2;border-radius:10px;padding:16px 20px;font-family:var(--mono);font-size:12.5px;line-height:1.5;overflow:auto">T = args.kl_temp
+
+with torch.no_grad(), lora_disabled(clip_model):
+    zs_image_features = clip_model.encode_image(images)
+    zs_image_features = zs_image_features / zs_image_features.norm(dim=-1, keepdim=True)
+    zs_logits = logit_scale * zs_image_features @ textual_features
+
+teacher_probs      = (zs_logits.float() / T).softmax(dim=-1)
+student_log_probs  = (cosine_similarity.float() / T).log_softmax(dim=-1)
+
+kl_loss = F.kl_div(student_log_probs, teacher_probs,
+                   reduction="batchmean") * (T * T)
+
+loss = ce_loss + args.kl_weight * kl_loss</pre>
+      <p class="anim d3" style="margin:10px 0 0;font-size:13.5px;color:var(--muted)"><span style="font-family:var(--mono);font-size:12.5px;color:var(--ink)">F.kl_div(student_log_probs, teacher_probs)</span> computes <b>KL(teacher ‖ student)</b> — PyTorch expects <b>log-probabilities</b> as input and <b>probabilities</b> as target.</p>
+      <div class="foot"><span><span class="dot" style="color:var(--amber)">&#9679;</span>&nbsp;&nbsp;CLIP-LoRA</span><span>Appendix</span></div>
     </div>
   </section>
 </deck-stage>
